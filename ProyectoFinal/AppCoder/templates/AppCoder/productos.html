@@ -18,16 +18,21 @@
         </div>
     </header>
         <h3>Productos</h3> 
+
         {% if codigo %}
             <H1>Se agrego correctamente el producto {{descripcion}} con el codigo {{codigo}} </H1>
         {% endif %}
 
-
-        <p>Ingrese Nuevo Producto</p>
+        <p>busqueda</p>
+        <form action="/AppCoder/busquedaarticulos/" method="get">
+            <input type="text" name="articulo" >
+            <input type="submit" value="buscar">
+        </form>
+        <!--<p>Ingrese Nuevo Producto</p>
         <form action="/AppCoder/agregaarticulos/" method="POST">{% csrf_token %}
             <p>Codigo <input type="text" name="codigo" placeholder="Ingrese codigo de producto"></p>
             <p>Descripcion <input type="text" name="descripcion" placeholder="Ingrese Descripcion"></p>
-            <p>Stock <input type="text" name="stock" placeholder="Ingrese Stock"> </p>
+            <p>Stock <input type="text" name="stock" placeholder="Ingrese Stock"> </p>-->
             <!-- dropdown list con articulos-->
             <!--<select name="select">
 
@@ -35,25 +40,27 @@
                     <option value="{{f.Codigo}}">{{f.descripcion}}</option>
 
                 {% endfor %}
-            </select>-->
+            </select>
            
             <input type="submit" name="enviar">
 
         
-        </form>
+        </form>-->
+
         <p></p>
         <p></p>
         <p></p>
         <h3>Listado de Productos</h3>
         <p></p>
         <p></p>
+
             <table>
                 <thead>
                     <tr>
                 
-                        <td>Codigo</td>
-                        <td>Descripcion</td>
-                        <td>Stock</td>
+                        <td>Codigo    </td>
+                        <td>Descripcion    </td>
+                        <td>Stock Disponible    </td>
                 
 
                 </tr>
@@ -67,7 +74,12 @@
                             <td>{{f.Codigo}}</td>
                             <td>{{f.descripcion}}</td>
                             <td>{{f.stock}}</td>
-                    
+                            <td><button><a href='{% url "generapedido" f.Codigo%}'>Comprar</a></button></td>
+                            <!--<td><form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
+                                    <input type='hidden' name='codigo' value={{f.Codigo}}>
+                                    <input type="submit" name="enviar">
+                                </form>-->
+                            </td>
 
                         {% endfor %}
                         </tr>

@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-$(ni%puf$*np6o0yv-nu(k&u428)6@8c)v^q5!%g8pr6i0oe1*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+#config smtp
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'passarininico@gmail.com'
+EMAIL_HOST_PASSWORD = '@Metro12'
+EMAIL_PORT = 587
 
 
 # Application definition
@@ -126,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Para las imagenes estaticas
 
 STATIC_URL = 'static/'
+
+LOGIN_URL="/login/"

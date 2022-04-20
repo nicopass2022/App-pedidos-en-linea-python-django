@@ -1,7 +1,10 @@
 
 from django.urls import path
 
-from .views import agregaarticulos, agregaclientes, agregapedido, clientes, inicio,   pedidos, recuperar_articulos, productos
+#para el logout
+from django.contrib.auth.views import LogoutView
+
+from .views import agregaarticulos, agregaclientes, agregapedido, clientes, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
 # from .views import curso, cursoformulario, estudiantes, entregables, inicio, profesores
 
 urlpatterns = [
@@ -15,7 +18,14 @@ urlpatterns = [
     path('agregapedido/', agregapedido, name="agregapedido"),
     # path('entregables/', entregables, name="Entregables"),
     path('pedidos/', pedidos, name="pedidos"),
-    path('productos/', productos, name="productos")
+    path('productos/', productos, name="productos"),
+    path('busquedaarticulos/', buscar, name="busquedaarticulos"),
+    path('generapedido/<codigo>', generapedido, name="generapedido"),
+    path('cierrapedido/', cierrapedido, name="cierrapedido"),
+    path('login/', login_request, name="login"),
+    path('registro/', register, name="registro"),
+    path('editarperfil/', editar_perfil, name="editarperfil"),
+    path('logout/', LogoutView.as_view(template_name="AppCoder/logout.html"), name="logout"),
     
     
 ]

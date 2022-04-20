@@ -22,6 +22,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    path('', include("AppCoder.urls")),
     path('admin/', admin.site.urls),
     #path('agrega/<nombre>/<camada>', curso),
     #path('profesor/<nombre>/<apellido>/<email>/<profesion>', profesor),
@@ -29,6 +30,6 @@ urlpatterns = [
 #     path('recupera_curso/', recuperar_curso),
 #     path('recupera_familia/', recuperar_familia),
 #     #path('template/', probandotemplate),
-    path('AppCoder/',include("AppCoder.urls")),
+   path('AppCoder/',include("AppCoder.urls")),
 #     path('familia/<nombre>/<apellido>/<dni>/<fecha_nacimiento>', agregafamiliar),
 ]

@@ -36,13 +36,16 @@
                         <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href='{% url "registro" %}'>Registro</a></li>
+                        <li class="nav-item"><a class="nav-link" href='{% url "login" %}'>Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href='{% url "logout" %}'>Salir</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         {% block ContenidoqCambia %}
-       
+        
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
@@ -52,7 +55,8 @@
             </div>
         </header> 
 
-        
+        <h3>Inicio</h3>
+        {{mensaje}}
         
      
 

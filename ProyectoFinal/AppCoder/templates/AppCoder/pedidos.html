@@ -22,14 +22,14 @@
     {% if articulo %}
         <H1>Se agrego correctamente el pedido con el articulo {{articulo}}  </H1>
     {% endif %}
-        <p>Ingrese su nuevo pedido</p>
+       <!-- <p>Ingrese su nuevo pedido</p>
         <form action="/AppCoder/agregapedido/" method="POST">{% csrf_token %}
             <p>Cuit <input type="text" name="cuit" placeholder="Ingrese su C.U.I.T."></p>
             <p>Articulo <input type="text" name="articulo" placeholder="Ingrese articulo"></p>
             <p>Cantidad <input type="nombre" name="cantidad" placeholder="Ingrese cantidad"> </p>
             <input type="submit" name="enviar">
         </form>
-
+        -->
 
         <p></p>
         <p></p>
@@ -37,42 +37,124 @@
         <p></p>
 
 
-        <h3>Listado de Pedidos</h3>
+        <h3>Pedidos</h3>
    <p></p>
    <p></p>
     <table>
         <thead>
             <tr>
           
-                <td>Nro Pedido</td>
-                <td>Cliente</td>
-                <td>Articulo</td>
-                <td>Cantidad/td>
-                <td>Entregado</td>
+                <td>Nro Pedido    :</td>
+                <td>Fecha    :</td>
+                <td>Cliente    :</td>
+                
+                <td>Articulo    :</td>
+                <td>Decripcion    :</td>
+                <td>Cantidad    :</td>
+                
+                <td>Estado   :</td>
+                <td>Entregado    :</td>
            
 
            </tr>
         </thead>
         <tbody>
         
-            {% if pedidos %}
+            {% if pedidos_temp %}
         
-                {% for f  in pedidos  %}
+                {% for f  in pedidos_temp  %}
                 <tr>
-                    <td>{{f.id}}</td>
+                    {% if f.cerrado %}
+                        <td>{{f.id}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %} 
+                    <td>{{f.fecha}}</td>
                     <td>{{f.idcliente}}</td>
-                    <td>{{f.idarticulo}}</td>
+                    <td>{{f.idarticulo_id}}</td>
+                    {% for d  in articulos %}
+                        {% if f.idarticulo_id == d.id %}
+                            <td>{{d.descripcion}}</td>
+                        {% endif %}    
+                    {% endfor %}        
                     <td>{{f.cantidad}}</td>
+                    {% if f.cerrado %}
+                        <td>{{f.cerrado}}</td>
+                    {% else %}
+                        <td>"Abierto"</td>
+                    {% endif %} 
+                    
+                    
                     <td>{{f.entregado}}</td>
               
 
                 {% endfor %}
                 </tr>
+                <td><button><a href='{% url "cierrapedido" %}'>Cerrar Pedido</a></button></td>
+            {% else %}
+                <h1>no hay pedidos abiertos</h1>
+            {% endif %}
+        </tbody>
+        
+    </table>
+    <h3>Pedidos Cerrados</h3> 
+    <table>
+        <thead>
+            <tr>
+          
+                <td>Nro Pedido    :</td>
+                <td>Fecha    :</td>
+                <td>Cliente    :</td>
+                
+                <td>Articulo    :</td>
+                <td>Decripcion    :</td>
+                <td>Cantidad    :</td>
+                
+                <td>Estado   :</td>
+                <td>Entregado    :</td>
+           
+
+           </tr>
+        </thead>
+
+        
+        <tbody>
+            {% if pedidos %}
+        
+                {% for f  in pedidos  %}
+                    <tr>
+                    {% if f.cerrado %}
+                        <td>{{f.id}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %} 
+                    <td>{{f.fecha}}</td>
+                    <td>{{f.idcliente}}</td>
+                    <td>{{f.idarticulo_id}}</td>
+                    {% for d  in detalle %}
+                        {% if f.idarticulo_id == d.id %}
+                            <td>{{d.descripcion}}</td>
+                        {% endif %}    
+                    {% endfor %}        
+                    <td>{{f.cantidad}}</td>
+                    {% if f.cerrado %}
+                        <td>{{f.cerrado}}</td>
+                    {% else %}
+                        <td>"Abierto"</td>
+                    {% endif %} 
+                    
+                    
+                    <td>{{f.entregado}}</td>
             
-        {% else %}
-            <h1>no hay registros</h1>
-        {% endif %}
+
+                    {% endfor %}
+                    </tr>
             
+            {% else %}
+                <h1>no hay Pedidos cerrados</h1>
+            {% endif %}
+
+                    
         </tbody>
         
     </table>
@@ -82,6 +164,7 @@
     <p></p>
     <p></p>
     <p></p>
+   <!--
     <h3>Listado de Productos</h3>
     <p></p>
     <p></p>
@@ -116,7 +199,7 @@
                 
         </tbody>
     </table>
-
+-->
 
 </body>
 

@@ -1,0 +1,28 @@
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <h1 class="mb-5">PEDIDOS</h1>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h3>Pedidos</h3> 
+    <H1>Se agrego correctamente el articulo con la cantidad {{cantidad}} </H1>
+    
+    <td><button><a href='{% url "productos" %}'>volver</a></button></td>
+    
+</body>
+
+{% endblock ContenidoqCambia %}
