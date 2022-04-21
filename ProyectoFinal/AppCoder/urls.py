@@ -4,7 +4,7 @@ from django.urls import path
 #para el logout
 from django.contrib.auth.views import LogoutView
 
-from .views import agregaarticulos, agregaclientes, agregapedido, clientes, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
+from .views import agregaarticulos, agregaclientes, generapedido1, agregapedido, clientes, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
 # from .views import curso, cursoformulario, estudiantes, entregables, inicio, profesores
 
 urlpatterns = [
@@ -20,7 +20,10 @@ urlpatterns = [
     path('pedidos/', pedidos, name="pedidos"),
     path('productos/', productos, name="productos"),
     path('busquedaarticulos/', buscar, name="busquedaarticulos"),
-    path('generapedido/<codigo>', generapedido, name="generapedido"),
+    #genera pedido sin form
+    path('generapedido1/<codigo>', generapedido1, name="generapedido1"),
+    #generapedido con form
+    path('generapedido/', generapedido, name="generapedido"),
     path('cierrapedido/', cierrapedido, name="cierrapedido"),
     path('login/', login_request, name="login"),
     path('registro/', register, name="registro"),

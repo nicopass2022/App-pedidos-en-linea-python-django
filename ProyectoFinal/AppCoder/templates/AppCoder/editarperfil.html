@@ -1,17 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil</title>
-</head>
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<header class="masthead">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5">Modificacion de perfil</h1>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
 <body>
-    
-    <form action="" method="POST">{{% csrf_token %}}
+    <p>Modificar los datos de : {{user.username}}</p>
+    <form action="" method="POST">{% csrf_token %}
         {{miFormulario.as_p}}
         <button type="submit">Enviar</button> 
     </form>
 
 </body>
-</html>
+{% endblock ContenidoqCambia %}

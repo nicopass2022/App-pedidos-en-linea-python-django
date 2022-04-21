@@ -98,29 +98,46 @@ def pedidos( request):
  
     #contexto= Context({"p":profe})
     #return render(request,"AppCoder/recuperar_articulos.html",{"familia":articulos})
-
-    if request.method=="POST":
-        #busco el formulario en forms.py
-        miformulario=cursoformulario(request.POST)
-        if miformulario.is_valid():
-            informacion=miformulario.cleaned_data
-            cuit=informacion["cuit"]
-            articulo=informacion["articulo"]
-            cantidad=informacion["cantidad"]
-
+   
+   
+    #--------------renderiza formulario -------
+    # if request.method=="POST":
+    #     #busco el formulario en forms.py
+    #     miformulario=cursoformulario(request.POST)
+    #     if miformulario.is_valid():
+    #         informacion=miformulario.cleaned_data
+    #         cuit=informacion["cuit"]
+    #         articulo=informacion["articulo"]
+    #         cantidad=informacion["cantidad"]
+    #-----------fin renderiza formulario------------
                 
-        # curso= Curso , 
-        # curso.save()
-        # return render (request, "AppCoder/inicio.html")
-    pedidos_temp=Pedido_temp.objects.filter(cerrado=0)
-    pedidos=Pedido.objects.all()
-    detalle=Detalle.objects.all()
-    id_art=Pedido_temp.objects.values("idarticulo_id")
-    articulos=Articulos.objects.all()
-    #descripcion=articulos.values("descripcion")
-    contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
-    return render(request, "AppCoder/pedidos.html",contexto)
 
+    #-----recupero el id cliente
+    usuario = request.user.id
+    try:  
+        #Clientes.objects.get(usuario_id=usuario)
+        
+
+        cliente=Clientes.objects.get(usuario_id=usuario)
+        idc=cliente.id
+
+    
+    
+        #---- Filtro estado del pedido, abierto o cerrado y filtro por idcliente
+        
+        pedidos_temp=Pedido_temp.objects.filter(cerrado=0, idcliente=idc)
+        print(pedidos_temp)
+        #pedidos_temp=Pedido_temp.objects.filter(cerrado=0)
+        #pedidos=Pedido.objects.all()
+        pedidos=Pedido.objects.filter(idcliente=idc)
+        detalle=Detalle.objects.all()
+        id_art=Pedido_temp.objects.values("idarticulo_id")
+        articulos=Articulos.objects.all()
+        #descripcion=articulos.values("descripcion")
+        contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
+        return render(request, "AppCoder/pedidos.html",contexto)
+    except:
+        return HttpResponse("Este suario no puede ver esta seccion o no tiene una empresa asignada") 
 @login_required
 def agregapedido(request):
 
@@ -163,21 +180,45 @@ def buscar(request):
             return render(request, "AppCoder/productos.html")
 
       #No olvidar from django.http import HttpResponse
-def generapedido(request, codigo):
+@login_required
+def generapedido(request):
+
         
+
+
+        codigo=request.POST["codigo"]
+        cantidad=request.POST["cantidad"]
+        print(codigo)
+        print (cantidad)
+       
+        # descripcion=Pedido(idcliente=cuit, idarticulo=articulo,cantidad=cantidad)
+        # descripcion.save()
+
+
         codigo_art=Articulos.objects.filter(Codigo=codigo)
         id_cod=codigo_art.values_list('pk', flat=True)
         artdescripcion=codigo_art.values_list("descripcion")
-        cuit="1"
+        usuario = request.user.id
+        
+        #idc=cliente.id
+        try:
+            cliente=Clientes.objects.get(usuario_id=usuario)
+            
+        except:
+            return HttpResponse("Este usuario no puede generar pedidos o no tiene una empresa asignada") 
+        cliente=Clientes.objects.filter(usuario_id=usuario)
+        clienteid=cliente.values("id")
+        #clienteid=cliente.values_list("id")
+        
         #idarticulo = models.IntegerField("idarticulo")
-        cantidad="1"
+        #cantidad="1"
         fecha=datetime.now()
         
         # codigo=request.POST["codigo"]
         # cuit=request.POST["cuit"]
         # articulo=request.POST["articulo"]
         # cantidad=request.POST["cantidad"]
-        pedido=Pedido_temp(idcliente=cuit, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
+        pedido=Pedido_temp(idcliente=clienteid, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
         pedido.save()
 
         # pedidos=Pedido.objects.all()
@@ -195,16 +236,41 @@ def generapedido(request, codigo):
         #return messages.add_message(request, messages.INFO, 'Hello world.')
 def cierrapedido(request):
         idcliente=Pedido_temp.objects.filter(cerrado=False)
+        print(idcliente)
+
+        # codigo_art=Articulos.objects.filter(Codigo=codigo)
+        # id_cod=codigo_art.values_list('pk', flat=True)
+        # artdescripcion=codigo_art.values_list("descripcion")
+        usuario = request.user.id
+        correo= request.user.email
+        print("acaaaaaaaaaaaaaaaaaaaa")
+        print(correo)
+        try:  
+        #Clientes.objects.get(usuario_id=usuario)
         
-        cuit="1"
+
+            cliente=Clientes.objects.get(usuario_id=usuario)
+            idc=cliente.id
+        except:
+            return HttpResponse("Este usuario no puede ver esta seccion o no tiene una empresa asignada") 
+
+
+
+
+      
+
+
+
+
+        cuit="2"
         fecha= datetime.now()
         pedido=Pedido(idcliente=cuit, fecha=fecha)
         pedido.save()
         obj = pedido.pk
-        
+        print(obj)
 
         #guardo el detalle
-        detalle_tmp=Pedido_temp.objects.filter(cerrado=False, idcliente=cuit)
+        detalle_tmp=Pedido_temp.objects.filter(cerrado=False, idcliente=idc)
         id_art= detalle_tmp.values("idarticulo_id")
         cantidad=detalle_tmp.values("cantidad")
         detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
@@ -213,7 +279,7 @@ def cierrapedido(request):
         cerrado=1
         # pedido_temp=Pedido_temp(cerrado=cerrado)
         # pedido_temp.save()
-        Pedido_temp.objects.filter(idcliente=cuit).update(cerrado=cerrado)
+        Pedido_temp.objects.filter(idcliente=idc).update(cerrado=cerrado)
         
 
         # id_cod=codigo_art.values_list('pk', flat=True)
@@ -237,9 +303,11 @@ def cierrapedido(request):
         
         
         #******************envia correos texto plano
+        destinatarios=[]
+        destinatarios.append(correo)
         numpedido=str(obj)
         mensaje=("Se ha generado el pedido nro: "+numpedido)
-        destinatarios=['nicolas@hxnet.com.ar', 'nico_pass@hotmail.com']
+        #destinatarios=[]
         send_mail(
             'Nuevo pedido ingresado',
             mensaje,
@@ -256,9 +324,9 @@ def cierrapedido(request):
 
 #@login_required
 def editar_perfil(request):
-    usuario= request.user
-    if request.method == "Post":
-        miFormulario= UserEdithForm(request.Post)
+    usuario = request.user
+    if request.method == "POST":
+        miFormulario= UserEdithForm(request.POST)
         if miFormulario.is_valid():
             informacion= miFormulario.cleaned_data
             usuario.email=informacion["email"]
@@ -270,7 +338,7 @@ def editar_perfil(request):
     else:
         miFormulario= UserEdithForm(initial={"email":usuario.email})
 
-    return render(request, "AppCoder/editaperfil.html", {"miFormulario":miFormulario})
+    return render(request, "AppCoder/editarperfil.html", {"miFormulario":miFormulario})
 
 def login_request(request):
 
@@ -321,3 +389,53 @@ def register(request):
 
       return render(request,"AppCoder/registro.html" ,  {"form":form})
 
+
+#-----------------------generapedido1 sin formulario-----
+@login_required
+def generapedido1(request, codigo,cantidad):
+
+        
+
+
+
+
+
+        codigo_art=Articulos.objects.filter(Codigo=codigo)
+        id_cod=codigo_art.values_list('pk', flat=True)
+        artdescripcion=codigo_art.values_list("descripcion")
+        usuario = request.user.id
+        
+        #idc=cliente.id
+        try:
+            cliente=Clientes.objects.get(usuario_id=usuario)
+            
+        except:
+            return HttpResponse("Este usuario no puede generar pedidos o no tiene una empresa asignada") 
+        cliente=Clientes.objects.filter(usuario_id=usuario)
+        clienteid=cliente.values("id")
+        #clienteid=cliente.values_list("id")
+        
+        #idarticulo = models.IntegerField("idarticulo")
+        cantidad="1"
+        fecha=datetime.now()
+        
+        # codigo=request.POST["codigo"]
+        # cuit=request.POST["cuit"]
+        # articulo=request.POST["articulo"]
+        # cantidad=request.POST["cantidad"]
+        pedido=Pedido_temp(idcliente=clienteid, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
+        pedido.save()
+
+        # pedidos=Pedido.objects.all()
+        # productos=Articulos.objects.all()
+        #return render(request,return HttpResponse(f"se agrego el articulo {articulo.codigo} , {articulo.descipcion}")return render(request,)
+        
+        
+        return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":artdescripcion, "cantidad":cantidad})
+        
+        #return render(request, "AppCoder/articulos.html")
+        
+        
+        #return HttpResponse(f"se agrego el articulo {id_cod}, {cuit}, {descripcion} ")
+        #return render_to_response('template_name', message='Save complete')
+        #return messages.add_message(request, messages.INFO, 'Hello world.')
