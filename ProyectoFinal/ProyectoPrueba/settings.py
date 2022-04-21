@@ -31,8 +31,8 @@ ALLOWED_HOSTS = ["*"]
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'passarininico@gmail.com'
-EMAIL_HOST_PASSWORD = '@Metro12'
+EMAIL_HOST_USER = 'testpedidos2022@gmail.com'
+EMAIL_HOST_PASSWORD = '@Pedidos2022'
 EMAIL_PORT = 587
 
 
