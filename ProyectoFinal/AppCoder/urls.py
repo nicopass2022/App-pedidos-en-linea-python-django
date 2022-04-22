@@ -4,7 +4,7 @@ from django.urls import path
 #para el logout
 from django.contrib.auth.views import LogoutView
 
-from .views import agregaarticulos, agregaclientes, generapedido1, agregapedido, clientes, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
+from .views import agregaarticulos, agregaclientes, contacto, generapedido1, agregapedido, clientes, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
 # from .views import curso, cursoformulario, estudiantes, entregables, inicio, profesores
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('registro/', register, name="registro"),
     path('editarperfil/', editar_perfil, name="editarperfil"),
     path('logout/', LogoutView.as_view(template_name="AppCoder/logout.html"), name="logout"),
+    path('contacto/', contacto, name="contacto"),
     
     
 ]

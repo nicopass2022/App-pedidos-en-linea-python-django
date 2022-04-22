@@ -439,3 +439,27 @@ def generapedido1(request, codigo,cantidad):
         #return HttpResponse(f"se agrego el articulo {id_cod}, {cuit}, {descripcion} ")
         #return render_to_response('template_name', message='Save complete')
         #return messages.add_message(request, messages.INFO, 'Hello world.')
+def contacto(request):
+            #******************envia correos texto plano
+        nombre=request.POST["nombre"]
+        correo=request.POST["correo"]
+        cel=request.POST["cel"]
+        msj=request.POST["mensaje"]
+
+        destinatarios=["testpedidos2022@gmail.com"]
+        print(nombre)
+        print(correo)
+        print(cel)
+        print(msj)
+       
+        mensaje=(f"Se ha generado un formulario de contacto de {nombre} correo {correo} celular {cel} con el mensaje:{msj}" )
+        #destinatarios=[]
+        send_mail(
+            'Nuevo pedido ingresado',
+            mensaje,
+            settings.EMAIL_HOST_USER,
+            destinatarios,
+             fail_silently=False
+            )
+        #**********************************
+        return HttpResponse("se envio el correo")

@@ -34,8 +34,8 @@
                         <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
                         <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                         
                         {% if request.user.is_authenticated %}
                             <p style="color:#f8f6f691" >Bienvenido {{user.username}}</p>
@@ -144,30 +144,31 @@
                 <!-- To make this form functional, sign up at-->
                 <!-- https://startbootstrap.com/solution/contact-forms-->
                 <!-- to get an API token!-->
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <form action="AppCoder/contacto/" id="contactForm" data-sb-form-api-token="91e18dff-3d7a-4ed5-a779-cd5c1bb39f37" method="POST">{% csrf_token %}
+                
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <!-- Name input-->
-                                <input class="form-control" id="name" type="text" placeholder="Tu nombre *" data-sb-validations="required" />
+                                <input class="form-control" id="name" type="text" placeholder="Tu nombre *" data-sb-validations="required" name="nombre" />
                                 <div class="invalid-feedback" data-sb-feedback="name:required">Nombre es un campo requerido.</div>
                             </div>
                             <div class="form-group">
                                 <!-- Email address input-->
-                                <input class="form-control" id="email" type="email" placeholder="Tu Email *" data-sb-validations="required,email" />
+                                <input class="form-control" id="email" type="email" placeholder="Tu Email *" data-sb-validations="required,email" name="correo" />
                                 <div class="invalid-feedback" data-sb-feedback="email:required">Email es un campo requerido.</div>
                                 <div class="invalid-feedback" data-sb-feedback="email:email">Email no válido.</div>
                             </div>
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Tu Celular *" data-sb-validations="required" />
+                                <input class="form-control" id="phone" type="tel" placeholder="Tu Celular *" data-sb-validations="required" name="cel" />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">Celular es un campo requerido.</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-textarea mb-md-0">
                                 <!-- Message input-->
-                                <textarea class="form-control" id="message" placeholder="Tu mensaje *" data-sb-validations="required"></textarea>
+                                <textarea class="form-control" id="message" placeholder="Tu mensaje *" data-sb-validations="required" name="mensaje"></textarea>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">Mensaje es un campo requerido.</div>
                             </div>
                         </div>
@@ -189,8 +190,10 @@
                     <!-- This is what your users will see when there is-->
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error al enviar mensaje!</div></div>
-                    <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Enviar Mensaje</button></div>
+                    <!-- Submit Button
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit" onlcick="/AppCoder/contacto">Enviar Mensaje</button></div>
+                -->
+                    <div class="text-center"><input type="submit">Enviar</div>
                 </form>
             </div>
         </section>
