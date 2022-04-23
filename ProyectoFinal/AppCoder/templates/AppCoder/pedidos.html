@@ -37,7 +37,7 @@
         <p></p>
 
 
-        <h3>Pedidos</h3>
+        
    <p></p>
    <p></p>
     <table>
@@ -61,7 +61,7 @@
         <tbody>
         
             {% if pedidos_temp %}
-        
+            <p>Pedidos abiertos</p>
                 {% for f  in pedidos_temp  %}
                 <tr>
                     {% if f.cerrado %}
@@ -89,8 +89,12 @@
               
 
                 {% endfor %}
+                
                 </tr>
-                <td><button><a href='{% url "cierrapedido" %}'>Cerrar Pedido</a></button></td>
+                {% if not user.is_superuser %}
+                
+                    <td><button><a href='{% url "cierrapedido" %}'>Cerrar Pedido</a></button></td>
+                {% endif %}    
             {% else %}
                 <h1>no hay pedidos abiertos</h1>
             {% endif %}

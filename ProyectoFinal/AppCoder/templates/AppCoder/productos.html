@@ -53,7 +53,8 @@
         <h3>Listado de Productos</h3>
         <p></p>
         <p></p>
-
+           
+          
             <table>
                 <thead>
                     <tr>
@@ -71,24 +72,30 @@
                 
                         {% for f  in productos  %}
                         <tr>
-                            <td>{{f.Codigo}}</td>
-                            <td>{{f.descripcion}}</td>
-                            <td>{{f.stock}}</td>
-                        
-                            <!--<td><button><a href='{% url "generapedido1" f.Codigo %}'>Comprar</a></button></td>-->
-                            <td><form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
-                                    <input type='hidden' name='codigo' value={{f.Codigo}}>
-                                    <input type="number" id="cantidad" name="cantidad" style="width: 3em">
-                                    <input type="submit" name="enviar">
-                                </form>
-                            </td>
-
+                            <!-- verifica que el articulo este habilitado. si esta deshabilitado no se muestra-->
+                            {% if f.habilitado %}
+                                <td>{{f.Codigo}}</td>
+                                <td>{{f.descripcion}}</td>
+                                <td>{{f.stock}}</td>
+                                {% if user.is_superuser %}
+                                    <td>{{f.habilitado}}</td>
+                                    <!--<td><button><a href='{% url "generapedido1" f.Codigo %}'>Comprar</a></button></td>-->
+                                {% else %}
+                                    <td><form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
+                                        <input type='hidden' name='codigo' value={{f.Codigo}}>
+                                        <input type="number" id="cantidad" name="cantidad" style="width: 3em">
+                                        <input type="submit" name="enviar">
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            {% endif %}
+                                    
                         {% endfor %}
                         </tr>
                     
-                {% else %}
-                    <h1>no hay registros</h1>
-                {% endif %}
+                    {% else %}
+                        <h1>no hay registros</h1>
+                    {% endif %}
                     
             </tbody>
         </table>

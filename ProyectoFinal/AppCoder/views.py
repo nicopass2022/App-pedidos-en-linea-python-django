@@ -137,7 +137,17 @@ def pedidos( request):
         contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
         return render(request, "AppCoder/pedidos.html",contexto)
     except:
-        return HttpResponse("Este suario no puede ver esta seccion o no tiene una empresa asignada") 
+        if request.user.id ==1:
+            pedidos_temp=Pedido_temp.objects.filter(cerrado=0)
+            pedidos=Pedido.objects.all()
+            detalle=Detalle.objects.all()
+            articulos=Articulos.objects.all()
+            #descripcion=articulos.values("descripcion")
+            contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
+            return render(request, "AppCoder/pedidos.html",contexto)
+        else:
+            return HttpResponse("Este suario no puede ver esta seccion o no tiene una empresa asignada") 
+
 @login_required
 def agregapedido(request):
 
@@ -156,7 +166,8 @@ def agregapedido(request):
 @login_required
 def productos(request):
 
-            articulos=Articulos.objects.all()
+            #articulos=Articulos.objects.all()
+            articulos=Articulos.objects.filter(habilitado=True)
  
             #contexto= Context({"p":profe})
             return render(request,"AppCoder/productos.html",{"productos":articulos})
@@ -369,6 +380,7 @@ def login_request(request):
       form = AuthenticationForm()
 
       return render(request,"AppCoder/login.html", {'form':form} )
+      #return render(request,"AppCoder/padre.html", {'form':form} )
 
 def register(request):
 
@@ -378,9 +390,22 @@ def register(request):
             #form = UserRegisterForm(request.POST)
             if form.is_valid():
 
-                  username = form.cleaned_data['username']
-                  form.save()
-                  return render(request,"AppCoder/padre.html" ,  {"mensaje":"Usuario Creado :)"})
+                username = form.cleaned_data['username']
+                form.save()
+                  
+                mensaje=(f"Nuevo registro de usuario {username}" )
+                destinatarios=["testpedidos2022@gmail.com"]
+                send_mail(
+                    'Nuevo resgistro de usuario',
+                    mensaje,
+                    settings.EMAIL_HOST_USER,
+                    destinatarios,
+                    fail_silently=False
+                )
+        #**********************************
+                  
+                  
+                return render(request,"AppCoder/padre.html" ,  {"mensaje":"Usuario Creado :). aguarde a que el administrador le confirme la finalización del alta",})
 
 
       else:

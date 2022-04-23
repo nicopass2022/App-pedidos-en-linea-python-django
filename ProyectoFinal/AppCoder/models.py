@@ -9,6 +9,9 @@ class Articulos(models.Model):
    Codigo=models.CharField("codigo", max_length=50)
    descripcion=models.CharField("descripcion", max_length=50)
    stock = models.IntegerField("stock")
+   habilitado=models.BooleanField(default=True)
+   def __str__(self) -> str:
+      return f"{self.Codigo} {self.descripcion} {self.stock} {self.habilitado}"
 
 
 class Clientes(models.Model):
@@ -20,7 +23,8 @@ class Clientes(models.Model):
    contacto=models.CharField("contacto", default="-", max_length=50)
    #ceo relacion con auth_user
    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-   
+   def __str__(self) -> str:
+      return f"{self.razonsocial} {self.cuit} {self.domicilio} {self.contacto}"
 
 class Pedido(models.Model):
    idcliente=models.IntegerField("idcliente")

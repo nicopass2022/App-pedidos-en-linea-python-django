@@ -35,7 +35,7 @@
                         <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
                         <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href='#contact'>Contacto</a></li>
                         
                         {% if request.user.is_authenticated %}
                             <p style="color:#f8f6f691" >Bienvenido {{user.username}}</p>
@@ -56,15 +56,16 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">Bienvenidos a NIFERTINA</div>
+                <div class="masthead-subheading">Bienvenidos a PEDIDOS ONLINE</div>
                 <div class="masthead-heading text-uppercase">Te estabamos esperando</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Quiero Saber Más!</a>
+                <!--<a class="btn btn-primary btn-xl text-uppercase" href="#services">Quiero Saber Más!</a>-->
+                <a class="btn btn-primary btn-xl text-uppercase" href="#contact">Quiero Saber Más!</a>
             </div>
         </header> 
 
         <h3>Inicio</h3>
         {{mensaje}}
-        
+
      
 
         <!-- Team-->
@@ -144,7 +145,7 @@
                 <!-- To make this form functional, sign up at-->
                 <!-- https://startbootstrap.com/solution/contact-forms-->
                 <!-- to get an API token!-->
-                <form action="AppCoder/contacto/" id="contactForm" data-sb-form-api-token="91e18dff-3d7a-4ed5-a779-cd5c1bb39f37" method="POST">{% csrf_token %}
+                <form action="AppCoder/contacto/" class="contact" id="contactForm" data-sb-form-api-token="91e18dff-3d7a-4ed5-a779-cd5c1bb39f37" method="POST">{% csrf_token %}
                 
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
@@ -204,7 +205,7 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; NIFERTINA 2022</div>
+                    <!--<div class="col-lg-4 text-lg-start">Copyright &copy; NIFERTINA 2022</div>-->
                     <div class="col-lg-4 my-3 my-lg-0">
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
