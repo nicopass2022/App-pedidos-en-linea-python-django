@@ -1,0 +1,135 @@
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <h1 class="mb-5">Consulta de Pedidos</h1>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+        <p></p>
+        <p></p>
+        <p></p>
+
+
+        
+   <p></p>
+   <p></p>
+    <h2>Consulta de pedidos</h2> 
+    
+    <h3>Pedido Nro:{{pedidos.id}} Fecha: {{pedidos.fecha}} cliente:{{cliente.razonsocial}}</h3>
+                        {% if pedidos.entregado %}
+                            <td>{{pedidos.entregado}}</td>
+                        {% else %}
+                            <td>"estado pendiente"</td>
+                        {% endif %}
+                
+                    
+            
+    
+                    
+
+    <table>
+        <thead>
+            <tr>
+          
+                
+                <td>codigo Articulo    :</td>
+                <td>Decripcion    :</td>
+                <td>Cantidad    :</td>
+                
+           
+
+           </tr>
+        </thead>
+
+        
+        <tbody>
+      
+        
+               
+                    
+
+              
+                    {% for d  in detalle %}
+                    <tr>
+                        
+                            {% for a in articulos %}
+                            
+                                {% if a.id == d.articulo_id %}
+                                    <td>{{a.Codigo}}</td>
+                                    <td>{{a.descripcion}}</td>
+                            
+                                {% endif %}
+                            {% endfor %} 
+                            <td>{{d.cantidad}}</td>
+                        </tr>
+                    {% endfor %}        
+                    
+
+                    
+ 
+                    
+            
+
+                    
+        </tbody>
+        
+    </table>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+   <!--
+    <h3>Listado de Productos</h3>
+    <p></p>
+    <p></p>
+        <table>
+            <thead>
+                <tr>
+            
+                    <td>Codigo</td>
+                    <td>Descripcion</td>
+                    <td>Stock</td>
+            
+
+            </tr>
+            </thead>
+            <tbody>
+            
+                {% if productos %}
+            
+                    {% for f  in productos  %}
+                    <tr>
+                        <td>{{f.Codigo}}</td>
+                        <td>{{f.descripcion}}</td>
+                        <td>{{f.stock}}</td>
+                
+
+                    {% endfor %}
+                    </tr>
+                
+            {% else %}
+                <h1>no hay registros</h1>
+            {% endif %}
+                
+        </tbody>
+    </table>
+-->
+
+</body>
+
+{% endblock ContenidoqCambia %}

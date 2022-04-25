@@ -133,7 +133,10 @@ def pedidos( request):
         detalle=Detalle.objects.all()
         id_art=Pedido_temp.objects.values("idarticulo_id")
         articulos=Articulos.objects.all()
+        
+
         #descripcion=articulos.values("descripcion")
+        print (cliente)
         contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
         return render(request, "AppCoder/pedidos.html",contexto)
     except:
@@ -143,7 +146,8 @@ def pedidos( request):
             detalle=Detalle.objects.all()
             articulos=Articulos.objects.all()
             #descripcion=articulos.values("descripcion")
-            contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
+            cliente=Clientes.objects.all()
+            contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos,  "cliente":cliente}
             return render(request, "AppCoder/pedidos.html",contexto)
         else:
             return HttpResponse("Este suario no puede ver esta seccion o no tiene una empresa asignada") 
@@ -247,15 +251,13 @@ def generapedido(request):
         #return messages.add_message(request, messages.INFO, 'Hello world.')
 def cierrapedido(request):
         idcliente=Pedido_temp.objects.filter(cerrado=False)
-        print(idcliente)
-
+        
         # codigo_art=Articulos.objects.filter(Codigo=codigo)
         # id_cod=codigo_art.values_list('pk', flat=True)
         # artdescripcion=codigo_art.values_list("descripcion")
         usuario = request.user.id
         correo= request.user.email
-        print("acaaaaaaaaaaaaaaaaaaaa")
-        print(correo)
+
         try:  
         #Clientes.objects.get(usuario_id=usuario)
         
@@ -266,53 +268,34 @@ def cierrapedido(request):
             return HttpResponse("Este usuario no puede ver esta seccion o no tiene una empresa asignada") 
 
 
-
-
-      
-
-
-
-
         cuit="2"
         fecha= datetime.now()
         pedido=Pedido(idcliente=cuit, fecha=fecha)
         pedido.save()
         obj = pedido.pk
-        print(obj)
+
 
         #guardo el detalle
         detalle_tmp=Pedido_temp.objects.filter(cerrado=False, idcliente=idc)
-        id_art= detalle_tmp.values("idarticulo_id")
-        cantidad=detalle_tmp.values("cantidad")
-        detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
-        detalle.save()
+
+
+        #---Loop , itero sobre queryset para guardar el detalle
+        for n in detalle_tmp:
+          
+           
+            id_art= n.idarticulo_id
+            cantidad= n.cantidad
+        
+        
+
+            detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
+            detalle.save()
+
         #cambio el estado del pedido a cerrado
         cerrado=1
-        # pedido_temp=Pedido_temp(cerrado=cerrado)
-        # pedido_temp.save()
         Pedido_temp.objects.filter(idcliente=idc).update(cerrado=cerrado)
         
 
-        # id_cod=codigo_art.values_list('pk', flat=True)
-        # descripcion=codigo_art.values_list("descripcion")
-        # cuit="1"
-        # #idarticulo = models.IntegerField("idarticulo")
-        # cantidad="1"
-        # fecha=datetime.now()
-        
-        # codigo=request.POST["codigo"]
-        # cuit=request.POST["cuit"]
-        # articulo=request.POST["articulo"]
-        # cantidad=request.POST["cantidad"]
-        # pedido=Pedido_temp(idcliente=cuit, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
-        # pedido.save()
-
-        # pedidos=Pedido.objects.all()
-        # productos=Articulos.objects.all()
-        #return render(request,return HttpResponse(f"se agrego el articulo {articulo.codigo} , {articulo.descipcion}")return render(request,)
-        #return render(request, "AppCoder/cursos.html", {"codigo": codigo, "descripcion":descripcion})
-        
-        
         #******************envia correos texto plano
         destinatarios=[]
         destinatarios.append(correo)
@@ -488,3 +471,21 @@ def contacto(request):
             )
         #**********************************
         return HttpResponse("se envio el correo")
+
+def consultapedido(request, id_pedido):
+    
+        
+        pedido=Pedido.objects.get(id=id_pedido)
+        print(pedido)
+        print(pedido.fecha)
+        cli= pedido.idcliente
+        print(cli)
+        detalle=Detalle.objects.filter(pedido_id=id_pedido)
+        print (detalle)
+        #id_art=Pedido_temp.objects.values("idarticulo_id")
+        #articulos=Articulos.objects.all()
+        cliente=Clientes.objects.get(id=cli)
+        articulos=Articulos.objects.all()
+
+        contexto={"articulos":articulos, "detalle":detalle, "pedidos":pedido, "cliente":cliente}
+        return render(request, "AppCoder/consultapedidos.html",contexto)

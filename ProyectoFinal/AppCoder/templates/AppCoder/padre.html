@@ -31,9 +31,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
+                        {% if  request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
+                            <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
+                            <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="#team">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href='#contact'>Contacto</a></li>
                         
@@ -81,9 +83,9 @@
                             <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/1.jpg' %}" alt="..." />
                             <h4>Nicolas</h4>
                             <p class="text-muted">Lead Designer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <!--<a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            --><a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/nicolas-passarini-489095ba/" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4">

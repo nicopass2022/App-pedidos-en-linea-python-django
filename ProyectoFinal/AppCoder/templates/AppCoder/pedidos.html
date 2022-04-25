@@ -44,16 +44,16 @@
         <thead>
             <tr>
           
-                <td>Nro Pedido    :</td>
+                <!--<td>Nro Pedido    :</td>-->
                 <td>Fecha    :</td>
-                <td>Cliente    :</td>
+                <!--<td>Cliente    :</td>-->
                 
-                <td>Articulo    :</td>
-                <td>Decripcion    :</td>
+                <td>Código Articulo    :</td>
+                <td>Decripción    :</td>
                 <td>Cantidad    :</td>
                 
-                <td>Estado   :</td>
-                <td>Entregado    :</td>
+                <!--<td>Estado   :</td>
+                <td>Entregado    :</td>-->
            
 
            </tr>
@@ -64,28 +64,34 @@
             <p>Pedidos abiertos</p>
                 {% for f  in pedidos_temp  %}
                 <tr>
-                    {% if f.cerrado %}
+                   <!-- {% if f.cerrado %}
                         <td>{{f.id}}</td>
                     {% else %}
                         <td></td>
-                    {% endif %} 
+                    {% endif %} -->
                     <td>{{f.fecha}}</td>
-                    <td>{{f.idcliente}}</td>
-                    <td>{{f.idarticulo_id}}</td>
+                    <!--<td>{{f.idcliente}}</td>-->
+                    {% for d  in articulos %}
+                        {% if f.idarticulo_id == d.id %}
+                            <td>{{d.Codigo}}</td>
+                            <td>{{d.descripcion}}</td>
+                        {% endif %}    
+                    {% endfor %}  
+                    <!--<td>{{f.idarticulo_id}}</td>
                     {% for d  in articulos %}
                         {% if f.idarticulo_id == d.id %}
                             <td>{{d.descripcion}}</td>
                         {% endif %}    
-                    {% endfor %}        
+                    {% endfor %}    -->    
                     <td>{{f.cantidad}}</td>
-                    {% if f.cerrado %}
+                    <!--{% if f.cerrado %}
                         <td>{{f.cerrado}}</td>
                     {% else %}
                         <td>"Abierto"</td>
                     {% endif %} 
                     
                     
-                    <td>{{f.entregado}}</td>
+                    <td>{{f.entregado}}</td>-->
               
 
                 {% endfor %}
@@ -107,14 +113,11 @@
             <tr>
           
                 <td>Nro Pedido    :</td>
+               
                 <td>Fecha    :</td>
+               
                 <td>Cliente    :</td>
-                
-                <td>Articulo    :</td>
-                <td>Decripcion    :</td>
-                <td>Cantidad    :</td>
-                
-                <td>Estado   :</td>
+
                 <td>Entregado    :</td>
            
 
@@ -133,23 +136,26 @@
                         <td></td>
                     {% endif %} 
                     <td>{{f.fecha}}</td>
-                    <td>{{f.idcliente}}</td>
-                    <td>{{f.idarticulo_id}}</td>
-                    {% for d  in detalle %}
-                        {% if f.idarticulo_id == d.id %}
-                            <td>{{d.descripcion}}</td>
-                        {% endif %}    
-                    {% endfor %}        
+                    
+                    
+                    {% if user.is_superuser %}
+                        {% for c  in cliente %}
+                            {% if c.id == f.idcliente  %}
+                                <td>{{c.razonsocial}}</td>
+
+                            {% endif %}    
+                        {% endfor %}   
+                    {% endif%}     
                     <td>{{f.cantidad}}</td>
-                    {% if f.cerrado %}
-                        <td>{{f.cerrado}}</td>
+                    {% if f.entregado %}
+                        <td>"Entregado"</td>
                     {% else %}
-                        <td>"Abierto"</td>
-                    {% endif %} 
+                        <td>"Pendiente"</td>
+                    {% endif %}
                     
                     
-                    <td>{{f.entregado}}</td>
-            
+                    <!--<td>{{f.entregado}}</td>-->
+                    <td> <td><button><a href='{% url "consultapedido" f.id %}'>Consultar Pedido</a></button></td></td>
 
                     {% endfor %}
                     </tr>
