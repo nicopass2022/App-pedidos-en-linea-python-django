@@ -21,7 +21,7 @@ from django.contrib.auth import login, logout, authenticate
 
 #from AppCoder.forms import cursoformulario
 
-from .models import Articulos, Clientes, Detalle, Pedido, Pedido_temp
+from .models import Articulos, Avatar, Clientes, Detalle, Pedido, Pedido_temp
 
 #requerir loguearse para acceder a las view o las clases 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -61,6 +61,7 @@ def agregaclientes(request):
 
 def inicio(request):
     #return render(request,"appcoder/inicio.html")
+    
     return render(request,"AppCoder/padre.html")
  
 
@@ -352,8 +353,9 @@ def login_request(request):
             
                   if user is not None:
                         login(request, user)
-                       
-                        return render(request,"AppCoder/padre.html",  {"mensaje":f"Bienvenido {usuario}"} )
+                        #cargo avatar
+                        avatar=Avatar.objects.get(user=request.user.id)
+                        return render(request,"AppCoder/padre.html",  {"mensaje":f"Bienvenido {usuario}", "avatar":avatar} )
                   else:
                         
                         return render(request,"AppCoder/login.html", {"mensaje":"Error, formulario erroneo",'form':form } )
@@ -518,7 +520,7 @@ def importar(request):
                 # print(string_list)   
                 # lista_final=[]
                 lista.append(linea)
-    print(lista)
+  
        
     # while(True):
     # #     linea = lectura.readline()
@@ -533,7 +535,7 @@ def importar(request):
         separador1=","
         lista_datos=texto.split(separador1)
         lista_final.append(lista_datos)
-    print(lista_final)
+   
 
     #     #lista_final.pop(0)
 

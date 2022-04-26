@@ -4,8 +4,14 @@ from django.urls import path
 #para el logout
 from django.contrib.auth.views import LogoutView
 
+#from Entrega1.ProyectoFinal.ProyectoPrueba.settings import MEDIA_URL
+
 from .views import agregaarticulos, agregaclientes, consultapedido, contacto, generapedido1, agregapedido, clientes, importar, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
 # from .views import curso, cursoformulario, estudiantes, entregables, inicio, profesores
+
+#para el utl pattern de imagenes
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', inicio, name="Inicio"),
@@ -35,3 +41,4 @@ urlpatterns = [
     
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

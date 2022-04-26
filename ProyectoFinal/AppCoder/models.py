@@ -3,6 +3,8 @@ from dataclasses import Field
 from django.db import models
 #para vincular modelo auth_user
 from django.conf import settings
+#para vincular modelo avatar a modelo user
+from django.contrib.auth.models import User
 
 
 class Articulos(models.Model):
@@ -49,3 +51,9 @@ class Pedido_temp(models.Model):
    #idarticulo = models.ForeignKey(Articulos)
    idarticulo = models.ForeignKey(Articulos, on_delete=models.PROTECT)
    fecha=models.DateField("fecha")
+
+class Avatar(models.Model):
+   user=models.ForeignKey(User, on_delete=models.CASCADE)
+   imagen=models.ImageField(upload_to= "avatares", null=True, blank=True)
+   def __str__(self) -> str:
+      return f"{self.user} {self.imagen}"
