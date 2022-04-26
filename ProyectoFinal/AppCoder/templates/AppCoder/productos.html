@@ -46,7 +46,10 @@
 
         
         </form>-->
-
+        <p></p>
+        {% if user.is_superuser  %}
+            <button><a href='{% url "importar" %}'>Importar articulos</a></button>
+        {% endif %}
         <p></p>
         <p></p>
         <p></p>

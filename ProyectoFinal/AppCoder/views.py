@@ -10,6 +10,8 @@ from django.core.mail import send_mail
 from pkg_resources import require
 
 from AppCoder.forms import UserEdithForm
+#Import OS para acceder a carpetas 
+import os
 
 
 #Para el login
@@ -19,7 +21,7 @@ from django.contrib.auth import login, logout, authenticate
 
 #from AppCoder.forms import cursoformulario
 
-from .models import Articulos, Clientes, Detalle, Pedido, Pedido_temp
+from .models import Articulos, Avatar, Clientes, Detalle, Pedido, Pedido_temp
 
 #requerir loguearse para acceder a las view o las clases 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -59,6 +61,7 @@ def agregaclientes(request):
 
 def inicio(request):
     #return render(request,"appcoder/inicio.html")
+    
     return render(request,"AppCoder/padre.html")
  
 
@@ -297,8 +300,9 @@ def cierrapedido(request):
         
 
         #******************envia correos texto plano
-        destinatarios=[]
+        destinatarios=["testpedidos2022@gmail.com"]
         destinatarios.append(correo)
+        
         numpedido=str(obj)
         mensaje=("Se ha generado el pedido nro: "+numpedido)
         #destinatarios=[]
@@ -349,8 +353,9 @@ def login_request(request):
             
                   if user is not None:
                         login(request, user)
-                       
-                        return render(request,"AppCoder/padre.html",  {"mensaje":f"Bienvenido {usuario}"} )
+                        #cargo avatar
+                        avatar=Avatar.objects.get(user=request.user.id)
+                        return render(request,"AppCoder/padre.html",  {"mensaje":f"Bienvenido {usuario}", "avatar":avatar} )
                   else:
                         
                         return render(request,"AppCoder/login.html", {"mensaje":"Error, formulario erroneo",'form':form } )
@@ -488,4 +493,81 @@ def consultapedido(request, id_pedido):
         articulos=Articulos.objects.all()
 
         contexto={"articulos":articulos, "detalle":detalle, "pedidos":pedido, "cliente":cliente}
+        print(contexto)
         return render(request, "AppCoder/consultapedidos.html",contexto)
+
+
+#--Importacion de articulos por archivo
+def importar(request): 
+    path = "c:\script"
+    os.chdir(path) 
+# file="script\articulos.txt"
+    lista=[]
+    lista_final=[]
+    dir = os.listdir(path) 
+  
+    if len(dir) == 0: 
+        return HttpResponse("no hay archivos para inmportar")
+    for file in os.listdir(): 
+    #     archivo = open(path + '/' + file, 'r')      
+    #     lectura= archivo.read()
+    #     lista_final=[]
+        with open (file) as lectura:
+            for linea in lectura:
+                #print(linea.rstrip())
+                # separador=","
+                # string_list=lectura.split(separador)
+                # print(string_list)   
+                # lista_final=[]
+                lista.append(linea)
+  
+       
+    # while(True):
+    # #     linea = lectura.readline()
+    # #     print("acaaaa")
+    # #     print(linea)
+    # #     if not linea:
+    # #         break
+    # # lectura.close()
+    for x in range(len(lista)):
+        texto=lista[x]
+    #     #     #fecha= texto[2:21]
+        separador1=","
+        lista_datos=texto.split(separador1)
+        lista_final.append(lista_datos)
+   
+
+    #     #lista_final.pop(0)
+
+    for valor in range(len(lista_final)):   
+        codigo=lista_final[valor][0]
+        descripcion=lista_final[valor][1]
+        stock=lista_final[valor][2]
+        print(codigo)
+        print(descripcion)
+        print(stock)
+
+    
+    #           if "BACKUP DATABASE successfully processed" in lista_final[valor][3]:
+    #             resultado="satisfactorio"
+    #         else:
+    #             resultado="revisar"
+    #         fecha= lista_final[valor][0]
+    #         emp=lista_final[valor][1]
+    #         ruta=lista_final[valor][2]
+    #         estado=resultado
+        if Articulos.objects.filter(Codigo=codigo):
+            Articulos.objects.filter(Codigo=codigo).update(stock=stock)
+            #return HttpResponse("se actualizaron articulos")   
+                
+        else:
+            articulo=Articulos(Codigo=codigo, descripcion=descripcion, stock=stock)
+            articulo.save()
+
+    #             mibkp=backup(fecha=fecha, empresa=emp,ruta=ruta, estado=estado)
+            
+    #             mibkp.save()
+
+    return HttpResponse("se agregaron articulos")
+    # backups=backup.objects.all()
+    # return render(request, "AppCoder/backup.html",{"backups":backups,'time':datetime.now()})
