@@ -36,8 +36,8 @@
                             <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
                             <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="#team">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href='#contact'>Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
                         
                         {% if request.user.is_authenticated %}
                             <p style="color:#f8f6f691" >Bienvenido {{user.username}}</p>
