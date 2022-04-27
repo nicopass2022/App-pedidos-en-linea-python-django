@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 
 #from Entrega1.ProyectoFinal.ProyectoPrueba.settings import MEDIA_URL
 
-from .views import agregaarticulos, agregaclientes, consultapedido, contacto, generapedido1, agregapedido, clientes, importar, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register
+from .views import agregaarticulos, agregaclientes, consultapedido, contacto, generapedido1, agregapedido, clientes, importar, importarMedia, inicio, editar_perfil, cierrapedido, generapedido, login_request,  pedidos, recuperar_articulos, productos, buscar, register, uploadFile
 # from .views import curso, cursoformulario, estudiantes, entregables, inicio, profesores
 
 #para el utl pattern de imagenes
@@ -38,6 +38,8 @@ urlpatterns = [
     path('contacto/', contacto, name="contacto"),
     path('consultapedido/<id_pedido>', consultapedido, name="consultapedido"),
     path('importar/', importar, name="importar"),
+    path('uploadFile/', uploadFile, name="uploadFile"),
+    path('importarMedia/', importarMedia, name="importarMedia"),
     
 ]
 

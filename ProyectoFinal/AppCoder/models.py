@@ -6,6 +6,8 @@ from django.db import models
 from django.conf import settings
 #para vincular modelo avatar a modelo user
 from django.contrib.auth.models import User
+#para el delete de archivos
+import os
 
 
 class Articulos(models.Model):
@@ -60,6 +62,15 @@ class Avatar(models.Model):
    def __str__(self) -> str:
       return f"{self.user} {self.imagen}"
 
+
+class Document(models.Model):
+   title = models.CharField(max_length = 200)
+   uploadedFile = models.FileField(upload_to = "Uploaded")
+   dateTimeOfUpload = models.DateTimeField(auto_now = True)
+   def delete(self, *args, **kwargs):
+      if self.uploadedFile:
+         self.uploadedFile.delete()
+         super().delete(*args, **kwargs)
 # class AlbumImage(models.Model):
 #    album = models.ForeignKey(Articulos, related_name='images', on_delete=models.CASCADE)
 #    image = models.ImageField(upload_to='images', null=True, blank=True, default="images/engranaje.jpg")

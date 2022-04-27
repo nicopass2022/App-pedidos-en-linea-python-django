@@ -21,12 +21,15 @@ from django.contrib.auth import login, logout, authenticate
 
 #from AppCoder.forms import cursoformulario
 
-from .models import  Articulos, Avatar, Clientes, Detalle, Pedido, Pedido_temp
+from .models import  Articulos, Avatar, Clientes, Detalle, Document, Pedido, Pedido_temp
 
 #requerir loguearse para acceder a las view o las clases 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+#----para eliminar archivos antiguos
+from django.conf import settings
+from django.conf.global_settings import MEDIA_ROOT
 #PARA LAS IMAGENES EN LOS ARTICULOS
 
 #from django.shortcuts import render_to_response, RequestContext
@@ -293,13 +296,9 @@ def cierrapedido(request):
 
         #---Loop , itero sobre queryset para guardar el detalle
         for n in detalle_tmp:
-          
-           
+                     
             id_art= n.idarticulo_id
             cantidad= n.cantidad
-        
-        
-
             detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
             detalle.save()
 
@@ -307,6 +306,18 @@ def cierrapedido(request):
         cerrado=1
         Pedido_temp.objects.filter(idcliente=idc).update(cerrado=cerrado)
         
+        
+        #----elimino de la tabla temp los cerrados del cliente----------
+        #detalle_tmp=Pedido_temp.objects.filter(cerrado=True, idcliente=idc)
+        Pedido_temp.objects.filter(cerrado=True, idcliente=idc).delete()
+
+        #---Loop , itero sobre queryset para eliminar registros del temp
+        # for n in detalle_tmp:
+                     
+        #     id_art= n.idarticulo_id
+        #     cantidad= n.cantidad
+        #     detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
+        #     detalle.save()
 
         #******************envia correos texto plano
         destinatarios=["testpedidos2022@gmail.com"]
@@ -581,6 +592,102 @@ def importar(request):
     # backups=backup.objects.all()
     # return render(request, "AppCoder/backup.html",{"backups":backups,'time':datetime.now()})
 
+#------------Importacion desde media--------------
+def importarMedia(request): 
+    # path = "c:\\articulos"
+    # os.chdir(path) 
+# file="script\articulos.txt"
+    lista=[]
+    lista_final=[]
+    # dir = os.listdir(path) 
+  
+    # if len(dir) == 0: 
+    #     return HttpResponse("no hay archivos para inmportar")
+    # for file in os.listdir(): 
+    # #     archivo = open(path + '/' + file, 'r')      
+    # #     lectura= archivo.read()
+   
+    with open ("media/Uploaded/articulos.txt") as lectura:
+            for linea in lectura:
+                #print(linea.rstrip())
+                # separador=","
+                # string_list=lectura.split(separador)
+                # print(string_list)   
+                # lista_final=[]
+                lista.append(linea)
+  
+       
+    # while(True):
+    # #     linea = lectura.readline()
+    # #     print("acaaaa")
+    # #     print(linea)
+    # #     if not linea:
+    # #         break
+    # # lectura.close()
+    for x in range(len(lista)):
+        texto=lista[x]
+    #     #     #fecha= texto[2:21]
+        separador1=","
+        lista_datos=texto.split(separador1)
+        lista_final.append(lista_datos)
+   
+
+    #     #lista_final.pop(0)
+    nuevo=0
+    actualizado=0
+    for valor in range(len(lista_final)):   
+        codigo=lista_final[valor][0]
+        descripcion=lista_final[valor][1]
+        stock=lista_final[valor][2]
+
+
+    
+    #           if "BACKUP DATABASE successfully processed" in lista_final[valor][3]:
+    #             resultado="satisfactorio"
+    #         else:
+    #             resultado="revisar"
+    #         fecha= lista_final[valor][0]
+    #         emp=lista_final[valor][1]
+    #         ruta=lista_final[valor][2]
+    #         estado=resultado
+        if Articulos.objects.filter(Codigo=codigo):
+            Articulos.objects.filter(Codigo=codigo).update(stock=stock)
+            #return HttpResponse("se actualizaron articulos")   
+            actualizado+=1    
+        else:
+            articulo=Articulos(Codigo=codigo, descripcion=descripcion, stock=stock)
+            articulo.save()
+            nuevo+=1
+
+
+    #-------------ELIMINA ARCHIVO de actualizacion de articulos de la carpeta /media/uploaded-----------
+    documents = Document.objects.all()
+    for document in documents:
+        document.delete()   
+
+
+    return HttpResponse(f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos")
+#-------subir archivos--------------
+
+def uploadFile(request):
+    if request.method == "POST":
+        # Fetching the form data
+        #fileTitle = request.POST["fileTitle"]
+        fileTitle = ""
+        uploadedFile = request.FILES["uploadedFile"]
+
+        # Saving the information in the database
+        document = Document(
+            title = fileTitle,
+            uploadedFile = uploadedFile
+        )
+        document.save()
+
+    documents = Document.objects.all()
+
+    return render(request, "AppCoder/uploadfile.html", context = {
+        "files": documents
+    })
 
 #------IMAGENES DE ARTICULOS-------------
 
