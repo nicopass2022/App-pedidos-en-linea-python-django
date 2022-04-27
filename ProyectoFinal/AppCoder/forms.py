@@ -4,6 +4,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+#importo el modelo de albun de imagenes
+#from .models import AlbumImage
 
 class cursoformulario(forms.Form):
     cuit=forms.IntegerField()
@@ -32,3 +34,12 @@ class UserEdithForm(UserCreationForm):
         model=User
         fields=["email","password1","password2"]
         helptexts={k: "" for k in fields}
+
+
+
+
+# class UploadImageForm(forms.ModelForm):
+
+#     class Meta:
+#         model = AlbumImage
+#         fields = ['album', 'image']
