@@ -21,12 +21,17 @@ from django.contrib.auth import login, logout, authenticate
 
 #from AppCoder.forms import cursoformulario
 
-from .models import Articulos, Avatar, Clientes, Detalle, Pedido, Pedido_temp
+from .models import  Articulos, Avatar, Clientes, Detalle, Pedido, Pedido_temp
 
 #requerir loguearse para acceder a las view o las clases 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+#PARA LAS IMAGENES EN LOS ARTICULOS
+
+#from django.shortcuts import render_to_response, RequestContext
+
+#from .forms import UploadImageForm
 
 @login_required
 def clientes(request):
@@ -177,6 +182,10 @@ def productos(request):
             articulos=Articulos.objects.filter(habilitado=True)
  
             #contexto= Context({"p":profe})
+
+            #---cargo imagenes--
+            #imagenes=AlbumImage.objects.all()
+
             return render(request,"AppCoder/productos.html",{"productos":articulos})
     #return render(request,"appcoder/productos.html")
     #return HttpResponse("vista de profesores")
@@ -491,7 +500,7 @@ def consultapedido(request, id_pedido):
         #articulos=Articulos.objects.all()
         cliente=Clientes.objects.get(id=cli)
         articulos=Articulos.objects.all()
-
+        print(detalle)
         contexto={"articulos":articulos, "detalle":detalle, "pedidos":pedido, "cliente":cliente}
         print(contexto)
         return render(request, "AppCoder/consultapedidos.html",contexto)
@@ -499,7 +508,7 @@ def consultapedido(request, id_pedido):
 
 #--Importacion de articulos por archivo
 def importar(request): 
-    path = "c:\script"
+    path = "c:\\articulos"
     os.chdir(path) 
 # file="script\articulos.txt"
     lista=[]
@@ -571,3 +580,24 @@ def importar(request):
     return HttpResponse("se agregaron articulos")
     # backups=backup.objects.all()
     # return render(request, "AppCoder/backup.html",{"backups":backups,'time':datetime.now()})
+
+
+#------IMAGENES DE ARTICULOS-------------
+
+
+# #@login_required
+# def upload_image_view(request):
+#     if request.method == 'POST':
+#         form = UploadImageForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             message = "Image uploaded succesfully!"
+#     else:
+#         form = UploadImageForm()
+#     return httpresponse("111")
+#     #return render_to_response('albums/upload.html', locals(), context_instance=RequestContext(request))
+
+
+# def home_view(request):
+#     return httpresponse("222")
+#     #return render_to_response('base.html')

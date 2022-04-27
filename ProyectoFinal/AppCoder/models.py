@@ -1,4 +1,5 @@
 from dataclasses import Field
+from email.policy import default
 
 from django.db import models
 #para vincular modelo auth_user
@@ -12,8 +13,9 @@ class Articulos(models.Model):
    descripcion=models.CharField("descripcion", max_length=50)
    stock = models.IntegerField("stock")
    habilitado=models.BooleanField(default=True)
+   image = models.ImageField(upload_to='images', null=True, blank=True, default="images/engranaje.jpg")
    def __str__(self) -> str:
-      return f"{self.Codigo} {self.descripcion} {self.stock} {self.habilitado}"
+      return f"{self.Codigo} {self.descripcion} {self.stock} {self.habilitado} {self.image}"
 
 
 class Clientes(models.Model):
@@ -57,3 +59,11 @@ class Avatar(models.Model):
    imagen=models.ImageField(upload_to= "avatares", null=True, blank=True)
    def __str__(self) -> str:
       return f"{self.user} {self.imagen}"
+
+# class AlbumImage(models.Model):
+#    album = models.ForeignKey(Articulos, related_name='images', on_delete=models.CASCADE)
+#    image = models.ImageField(upload_to='images', null=True, blank=True, default="images/engranaje.jpg")
+
+#     #def __unicode__(self,):
+#    def __str__(self) -> str:
+#       return str(self.image)

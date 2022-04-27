@@ -62,6 +62,7 @@
                 <thead>
                     <tr>
                 
+                        <td>Imagen</td>
                         <td>Codigo    </td>
                         <td>Descripcion    </td>
                         <td>Stock Disponible    </td>
@@ -77,6 +78,15 @@
                         <tr>
                             <!-- verifica que el articulo este habilitado. si esta deshabilitado no se muestra-->
                             {% if f.habilitado %}
+  
+                                <!--{% for i  in imagenes  %}  
+                                    {% if i.album_id == f.id %}
+                                        <td><image src="{{i.image.url}}" alt="imagen"></image></td>
+                                    
+                                        
+                                    {% endif%}
+                                {% endfor %}  -->
+                                <td><image src="{{f.image.url}}" alt="imagen"></image></td>
                                 <td>{{f.Codigo}}</td>
                                 <td>{{f.descripcion}}</td>
                                 <td>{{f.stock}}</td>
@@ -102,6 +112,13 @@
                     
             </tbody>
         </table>
+        <table>
+            <thead>
+                <tr>
 
+                </tr>
+
+            </tbody>
+        </table>
 </body>
 {% endblock ContenidoqCambia %}
