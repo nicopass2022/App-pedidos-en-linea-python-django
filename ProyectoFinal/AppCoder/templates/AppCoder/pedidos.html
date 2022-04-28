@@ -22,6 +22,7 @@
     {% if articulo %}
         <H1>Se agrego correctamente el pedido con el articulo {{articulo}}  </H1>
     {% endif %}
+     {{mensaje}}
        <!-- <p>Ingrese su nuevo pedido</p>
         <form action="/AppCoder/agregapedido/" method="POST">{% csrf_token %}
             <p>Cuit <input type="text" name="cuit" placeholder="Ingrese su C.U.I.T."></p>
@@ -40,6 +41,7 @@
         
    <p></p>
    <p></p>
+   {% if pedidos_temp %}
     <table>
         <thead>
             <tr>
@@ -60,7 +62,7 @@
         </thead>
         <tbody>
         
-            {% if pedidos_temp %}
+            
             <p>Pedidos abiertos</p>
                 {% for f  in pedidos_temp  %}
                 <tr>
@@ -101,13 +103,15 @@
                 
                     <td><button><a href='{% url "cierrapedido" %}'>Cerrar Pedido</a></button></td>
                 {% endif %}    
-            {% else %}
-                <h1>no hay pedidos abiertos</h1>
+
             {% endif %}
         </tbody>
         
     </table>
+    
+    {% if pedidos %}
     <h3>Pedidos Cerrados</h3> 
+    
     <table>
         <thead>
             <tr>
@@ -126,7 +130,7 @@
 
         
         <tbody>
-            {% if pedidos %}
+            
         
                 {% for f  in pedidos  %}
                     <tr>
@@ -160,8 +164,7 @@
                     {% endfor %}
                     </tr>
             
-            {% else %}
-                <h1>no hay Pedidos cerrados</h1>
+
             {% endif %}
 
                     
