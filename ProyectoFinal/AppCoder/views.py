@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context, Template
@@ -137,7 +138,7 @@ def pedidos( request):
         #---- Filtro estado del pedido, abierto o cerrado y filtro por idcliente
         
         pedidos_temp=Pedido_temp.objects.filter(cerrado=0, idcliente=idc)
-        print(pedidos_temp)
+     
         #pedidos_temp=Pedido_temp.objects.filter(cerrado=0)
         #pedidos=Pedido.objects.all()
         pedidos=Pedido.objects.filter(idcliente=idc)
@@ -146,8 +147,7 @@ def pedidos( request):
         articulos=Articulos.objects.all()
         
 
-        #descripcion=articulos.values("descripcion")
-        print (cliente)
+       
         contexto={"pedidos_temp":pedidos_temp, "articulos":articulos, "detalle":detalle, "pedidos":pedidos}
         return render(request, "AppCoder/pedidos.html",contexto)
     except:
@@ -283,9 +283,9 @@ def cierrapedido(request):
             return HttpResponse("Este usuario no puede ver esta seccion o no tiene una empresa asignada") 
 
 
-        cuit="2"
+        #cuit="2"
         fecha= datetime.now()
-        pedido=Pedido(idcliente=cuit, fecha=fecha)
+        pedido=Pedido(idcliente=idc, fecha=fecha)
         pedido.save()
         obj = pedido.pk
 
@@ -688,6 +688,65 @@ def uploadFile(request):
     return render(request, "AppCoder/uploadfile.html", context = {
         "files": documents
     })
+
+
+#---------------Modifica estado de pedido / entregado
+@login_required
+def modificaPedido(request):
+       
+        #verifico si es un admin para continuar con la modificacion del estado del pedido
+
+        if request.user.id == 1:
+            if request.method == "POST":
+                pedido=request.POST["pedido"]
+                #entregado=request.POST["preparado"]
+                entregado = request.POST.get('preparado')
+                if not entregado:
+                    entregado = False
+                print(entregado)
+                if entregado== "on":
+                    
+                    Pedido.objects.filter(id=pedido).update(entregado=1)
+                    idp=Pedido.objects.get(id=pedido)
+                    mensaje=(f"su pedido nro {pedido}, ya se encuentra preparado, listo para retirar" )
+                else:
+                    print("-------------------------------------")
+                    Pedido.objects.filter(id=pedido).update(entregado=0)
+                    idp=Pedido.objects.get(id=pedido)
+                    mensaje=(f"su pedido nro {pedido}, esta en proceso de preparación" )
+                #--consulto el correo del usuario
+                
+                
+                cliente=Clientes.objects.get(id=idp.idcliente)
+                
+                usuario=User.objects.get(id=cliente.usuario_id)
+                
+                correo=usuario.email
+                
+                #----envio correo---------
+                
+                destinatarios=["testpedidos2022@gmail.com"]
+                destinatarios.append(correo)
+                send_mail(
+                    'Estado de su pedido',
+                    mensaje,
+                    settings.EMAIL_HOST_USER,
+                    destinatarios,
+                    fail_silently=False
+                )
+                mensaje="el pedido se modifico correctamente"
+                
+                return render(request, "AppCoder/pedidos.html", {"mensaje":mensaje})
+                
+                #return HttpResponse("el pedido cambio su estado")
+            else:
+                return HttpResponse("get") 
+        else:
+            return HttpResponse("otro usuario") 
+#------fin modifica pedido
+
+
+
 
 #------IMAGENES DE ARTICULOS-------------
 

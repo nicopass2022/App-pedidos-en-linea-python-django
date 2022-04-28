@@ -34,7 +34,15 @@
                         {% if  request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
                             <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
-                            <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
+                            {% if user.is_superuser  %}
+                                <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
+                                <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
+                                
+                            
+                            {% endif %}
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
