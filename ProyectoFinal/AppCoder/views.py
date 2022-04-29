@@ -322,6 +322,10 @@ def cierrapedido(request):
             cantidad= n.cantidad
             detalle=Detalle(articulo_id=id_art, pedido_id=obj, cantidad=cantidad)
             detalle.save()
+            articulo=Articulos.objects.get(id=id_art)
+            stock=articulo.stock
+            
+            articulo=Articulos.objects.filter(id=id_art).update(stock=stock-cantidad)
 
         #cambio el estado del pedido a cerrado
         cerrado=1

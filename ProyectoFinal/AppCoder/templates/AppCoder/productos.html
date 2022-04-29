@@ -66,6 +66,7 @@
                         <td>Imagen</td>
                         <td>Codigo    </td>
                         <td>Descripcion    </td>
+                        <td>Descripcion Extendida   </td>
                         <td>Stock Disponible    </td>
                 
 
@@ -92,6 +93,7 @@
                                 <td><image src="{{f.image.url}}" alt="imagen"></image></td>
                                 <td>{{f.Codigo}}</td>
                                 <td>{{f.descripcion}}</td>
+                                <td>{{f.desc_extendida}}</td>
                                 <td>{{f.stock}}</td>
                                 {% if user.is_superuser  %}
                                     <td>{{f.habilitado}}</td>
@@ -102,7 +104,7 @@
                                     
                                 {% else %}
                                     <td><input type='hidden' name='codigo[]' value={{f.Codigo}}>
-                                        <input type="number" min="1" max="10" placeholder="Ingrese hasta 10 unidades"id="cantidad" name="cantidad[]" style="width: 14em">
+                                        <input type="number" min="1" max={{f.stock}} placeholder="Ingrese hasta {{f.stock}} unidades"id="cantidad" name="cantidad[]" style="width: 14em">
                                         
                                     </td>
                                     

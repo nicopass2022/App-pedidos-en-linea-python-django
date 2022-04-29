@@ -14,6 +14,7 @@ class Articulos(models.Model):
    Codigo=models.CharField("codigo", max_length=50)
    descripcion=models.CharField("descripcion", max_length=50)
    stock = models.IntegerField("stock")
+   desc_extendida=models.CharField("descripcion", max_length=250, null=True, blank=True)
    habilitado=models.BooleanField(default=True)
    image = models.ImageField(upload_to='images', null=True, blank=True, default="images/engranaje.jpg")
    def __str__(self) -> str:

@@ -88,6 +88,7 @@
         </tbody>
         
     </table>
+    {% if request.user.is_superuser  %}
     <form action="/AppCoder/modificapedido/" method="POST">{% csrf_token %}
         <input type='hidden' name='pedido' value={{pedidos.id}} >
         {% if pedidos.entregado %}
@@ -96,8 +97,9 @@
             <p>Pedido preparado<input type="checkbox" name='preparado'></p>
         {% endif %}
         <input type="submit" name="Agregar">
-        </form>
-        
+    </form>
+    {% endif %} 
+    <td><button><a href='{% url "pedidos" %}'>volver</a></button></td>  
 
 
 
