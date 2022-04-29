@@ -58,7 +58,7 @@ class Pedido_temp(models.Model):
 
 class Avatar(models.Model):
    user=models.ForeignKey(User, on_delete=models.CASCADE)
-   imagen=models.ImageField(upload_to= "avatares", null=True, blank=True)
+   imagen=models.ImageField(upload_to= "avatares", null=True, blank=True, default="avatares/images.png")
    def __str__(self) -> str:
       return f"{self.user} {self.imagen}"
 

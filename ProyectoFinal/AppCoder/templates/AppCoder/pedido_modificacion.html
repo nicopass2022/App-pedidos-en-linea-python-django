@@ -18,17 +18,9 @@
         </div>
     </header>
 
-    <h3>Pedidos</h3> 
-    <H1>Se agregaron correctamente los siguientes articulos </H1>
-    <ul>
-    {% for producto in productos %}
-        <li>{{ producto }}</li>
-    {% endfor %}
-    </ul>
-    <td><button><a href='{% url "productos" %}'>volver</a></button></td>
-   
-    
+    <h3>Modificación Pedido</h3> 
 
-</body>
+     {{mensaje}}
 
+    <td><button><a href='{% url "pedidos" %}'>volver</a></button></td>
 {% endblock ContenidoqCambia %}
