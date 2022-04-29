@@ -40,6 +40,8 @@
         
    <p></p>
    <p></p>
+   {% if pedidos_temp %}
+   <h3>Pedidos Abiertos</h3> 
     <table>
         <thead>
             <tr>
@@ -60,8 +62,8 @@
         </thead>
         <tbody>
             <form action="/AppCoder/cierrapedido/" method="POST">{% csrf_token %}
-            {% if pedidos_temp %}
-            <h5><input type="Submit" value= "Enviar Pedido"></h5>
+            
+            <h5><input type="Submit" value= "Cerrar Pedido"></h5>
 
                 {% for f  in pedidos_temp  %}
 
@@ -76,7 +78,7 @@
                                 
                             {% endif%}
                         {% endfor %}  -->
-                        <td>{{f.id}}</td>
+                       
                         <td>{{f.fecha}}</td>
                         {% for d  in articulos %}
                             {% if f.idarticulo_id == d.id %}
@@ -99,14 +101,15 @@
                 {% endfor %}
                 </tr>
             
-            {% else %}
-                <h1>no hay registros</h1>
+
             {% endif %}
             </form>
     </tbody>
 
         
     </table>
+
+    <hr>
     <h3>Pedidos Cerrados</h3> 
     <table>
         <thead>
