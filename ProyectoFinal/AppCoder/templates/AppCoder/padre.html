@@ -32,21 +32,24 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         {% if  request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
-                            <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
-                            {% if user.is_superuser  %}
+                            
+                            
+                            {% if request.user.is_superuser  %}
+                                <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
+                                <li class="nav-item"><a class="nav-link" href='{% url "clientes" %}'>clientes</a></li>
                                 <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                             {% else %}
+                                <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
                                 <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                                 <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
                                 <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
                                 
                             
                             {% endif %}
-                        {% endif %}
+                        {% else %}
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
-                        
+                        {% endif %}
                         {% if request.user.is_authenticated %}
                             <p style="color:#f8f6f691" >Bienvenido {{user.username}}</p>
                             <!--<li class="nav-item"><a class="nav-link" href="#">Bienvenido {{user.username}}</a></li>-->

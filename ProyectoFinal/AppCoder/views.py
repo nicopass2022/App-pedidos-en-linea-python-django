@@ -249,7 +249,7 @@ def generapedido(request):
         if len(output) == 0:
             output.append("No se generaron pedidos")
 
-        return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":output, "productos":output  })
+        return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":output, "productos":output})
         
         """
         codigo=(request.POST["codigo"])[0]
@@ -436,6 +436,15 @@ def register(request):
 
                 username = form.cleaned_data['username']
                 form.save()
+                #--recupero id usuario para agregarle un avatar por defecto
+                #usuario=form.pk
+                usuario=User.objects.get(username=username)
+                id=usuario.pk
+                print("-----------------------------------")
+                print (id)
+                
+                avatar=Avatar(user_id=id)
+                avatar.save()
                   
                 mensaje=(f"Nuevo registro de usuario {username}" )
                 destinatarios=["testpedidos2022@gmail.com"]
@@ -827,10 +836,10 @@ def modificaPedido(request):
                     fail_silently=False
                 )
                 mensaje="el pedido se modifico correctamente"
+                #return pedidos( request)
+                return render(request, "AppCoder/pedido_modificacion.html", {"mensaje":mensaje})
                 
-                return render(request, "AppCoder/pedidos.html", {"mensaje":mensaje})
-                
-                #return HttpResponse("el pedido cambio su estado")
+                return HttpResponse("el pedido cambio su estado")
             else:
                 return HttpResponse("get") 
         else:
