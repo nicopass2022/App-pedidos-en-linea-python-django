@@ -1,0 +1,189 @@
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <h1 class="mb-5">PEDIDOS</h1>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h3>Pedidos</h3> 
+    {% if articulo %}
+        <H1>Se agrego correctamente el pedido con el articulo {{articulo}}  </H1>
+    {% endif %}
+     {{mensaje}}
+
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+
+
+        
+   <p></p>
+   <p></p>
+   {% if pedidos_temp %}
+        <table>
+            <thead>
+                <tr>
+            
+                    <!--<td>Nro Pedido    :</td>-->
+                    <td>Fecha    :</td>
+                    <!--<td>Cliente    :</td>-->
+                    
+                    <td>Código Articulo    :</td>
+                    <td>Decripción    :</td>
+                    <td>Cantidad    :</td>
+                    
+                    <!--<td>Estado   :</td>
+                    <td>Entregado    :</td>-->
+            
+
+            </tr>
+            </thead>
+           
+        
+            
+            <tbody>
+            {% for f  in pedidos_temp  %}
+                {% if not user.is_superuser %}
+                    <form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
+                    {% if productos %}
+                    
+
+                    <tr>
+                    <!-- {% if f.cerrado %}
+                            <td>{{f.id}}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %} -->
+                        <td>{{f.fecha}}</td>
+                        <!--<td>{{f.idcliente}}</td>-->
+                        {% for d  in articulos %}
+                            {% if f.idarticulo_id == d.id %}
+                                <td>{{d.Codigo}}</td>
+                                <td>{{d.descripcion}}</td>
+                            {% endif %}    
+                        {% endfor %}  
+  
+                        <td>{{f.cantidad}}</td>
+                        <td><input type='hidden' name='codigo[]' value={{f.Codigo}}>
+                            <input type="number" min="1" max="10" placeholder="Ingrese hasta 10 unidades"id="cantidad" name="cantidad[]" style="width: 14em">
+                            
+                        </td>
+                        <!--{% if f.cerrado %}
+                            <td>{{f.cerrado}}</td>
+                        {% else %}
+                            <td>"Abierto"</td>
+                        {% endif %} 
+                        
+                        
+                        <td>{{f.entregado}}</td>-->
+                
+
+                
+                    
+                    </tr>
+                    <h5><input type="Submit" value= "Enviar Pedido"></h5>
+                    </form>
+                    <!--{% if not user.is_superuser %}
+                    
+                        <td><button><a href='{% url "cierrapedido" %}'>Cerrar Pedido</a></button></td>-->
+                    {% endif %}  
+                {% else %}
+                <tr>
+                    <!-- {% if f.cerrado %}
+                        <td>{{f.id}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %} -->
+                    <td>{{f.fecha}}</td>
+                    <!--<td>{{f.idcliente}}</td>-->
+                    {% for d  in articulos %}
+                        {% if f.idarticulo_id == d.id %}
+                            <td>{{d.Codigo}}</td>
+                            <td>{{d.descripcion}}</td>
+                        {% endif %}    
+                    {% endfor %}  
+   
+                    <td>{{f.cantidad}}</td>           
+                {% endif %}
+            {% endfor %}    
+            </tbody>
+        
+    </table>
+    {% endif %}
+    
+    {% if pedidos %}
+
+<h3>Pedidos Cerrados</h3> 
+    
+    <table>
+        <thead>
+            <tr>
+          
+                <td>Nro Pedido    :</td>
+               
+                <td>Fecha    :</td>
+               
+                <td>Cliente    :</td>
+
+                <td>Estado    :</td>
+           
+
+           </tr>
+        </thead>
+
+        
+        <tbody>
+            
+        
+                {% for f  in pedidos  %}
+                    <tr>
+                    {% if f.cerrado %}
+                        <td>{{f.id}}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %} 
+                    <td>{{f.fecha}}</td>
+                    
+                    
+                    {% if user.is_superuser %}
+                        {% for c  in cliente %}
+                            {% if c.id == f.idcliente  %}
+                                <td>{{c.razonsocial}}</td>
+
+                            {% endif %}    
+                        {% endfor %}   
+                    {% endif%}     
+                    <td>{{f.cantidad}}</td>
+                    {% if f.entregado %}
+                        <td>"Entregado"</td>
+                    {% else %}
+                        <td>"Pendiente"</td>
+                    {% endif %}
+                    
+                    
+                   
+                    <td> <td><button><a href='{% url "consultapedido" f.id %}'>Consultar Pedido</a></button></td></td>
+
+                {% endfor %}
+                    </tr>
+            
+        </tbody>
+        
+    </table>
+    {% endif %}
+
+{% endblock ContenidoqCambia %}

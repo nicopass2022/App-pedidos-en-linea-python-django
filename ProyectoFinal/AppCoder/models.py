@@ -28,7 +28,7 @@ class Clientes(models.Model):
    domicilio=models.CharField("domicilio", default="-", max_length=50)
    contacto=models.CharField("contacto", default="-", max_length=50)
    #ceo relacion con auth_user
-   usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+   usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, unique=True)
    def __str__(self) -> str:
       return f"{self.razonsocial} {self.cuit} {self.domicilio} {self.contacto}"
 
