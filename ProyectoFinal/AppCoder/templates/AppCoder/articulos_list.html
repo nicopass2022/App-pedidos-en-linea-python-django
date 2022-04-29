@@ -1,0 +1,63 @@
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <h1 class="mb-5">Articulos</h1>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h1>Listado de Articulos</h1>
+
+    
+    <table>
+        <thead>
+            
+            <tr>
+                
+                <td>CODIGO</td>
+                <td>DESCRIPCION</td>
+             
+                
+                <td>STOCK</td>
+                <td>HABILITADO</td>
+        </tr>
+        </thead>
+        <tbody>
+        
+           
+        
+            {% for C in object_list %}
+                <tr>
+                    
+                    <td>{{ C.Codigo }}</td>
+                    <td>{{ C.descripcion }} </td>
+                   
+                    <td> {{ C.stock }}</td>
+                    <td> {{ C.habilitado }}</td>
+                    <td><a href="{% url 'articuloDetail' C.id %}">Ver</a> |</td> 
+                    <td><a href="{% url 'articuloEdit' C.id %}">Editar</a> </td>| 
+                    <td><a href="{% url 'articuloDelete' C.id %}">Borrar</a> </td>
+            
+
+                {% endfor %}
+                </tr>
+            
+
+            
+    </tbody>
+</table>
+    <a href="{% url 'articuloNew'  %}">Nuevo</a> | 
+</body>
+    {% endblock ContenidoqCambia %}
