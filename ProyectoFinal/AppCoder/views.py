@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context, Template
 from django.template import loader
+from django.db.models import Q
 
 from django.contrib import messages
 from django.conf import settings
@@ -200,7 +201,8 @@ def buscar(request):
 
 	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
                 articulo = request.GET['articulo'] 
-                articulos = Articulos.objects.filter(descripcion__contains=articulo)
+                #articulos = Articulos.objects.filter(descripcion__contains=articulo)
+                articulos = Articulos.objects.filter(Q(descripcion__contains=articulo) | Q(Codigo__contains=articulo))
             # return HttpResponse("articulo")
             # return render(request, "AppCoder/inicio.html", {"cursos":articulos, "camada":articulo})
                 return render(request,"AppCoder/productos.html",{"productos":articulos})
@@ -210,14 +212,48 @@ def buscar(request):
             return render(request, "AppCoder/productos.html")
 
       #No olvidar from django.http import HttpResponse
+
+def savePedido(usuario, codigo, cantidad):    
+        try:
+            cliente=Clientes.objects.get(usuario_id=usuario)
+            
+        except:
+            return {"status":"error", "description":"Este usuario no puede generar pedidos o no tiene una empresa asignada"} 
+
+        codigo_art=Articulos.objects.filter(Codigo=codigo)
+        id_cod=codigo_art.values_list('pk', flat=True)
+        artdescripcion=codigo_art.values_list("descripcion")
+        
+        cliente=Clientes.objects.filter(usuario_id=usuario)
+        clienteid=cliente.values("id")
+        fecha=datetime.now()
+        pedido=Pedido_temp(idcliente=clienteid, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
+        pedido.save()
+        return {"status":"ok", "description":artdescripcion} 
+
+
 @login_required
 def generapedido(request):
+        codigos = request.POST.getlist("codigo[]")
+        cantidades=request.POST.getlist("cantidad[]")
+        userId = request.user.id
+        output = []
+        i = 0
+        while i < len(codigos):
+            if len(cantidades[i]) > 0:
+                rta = savePedido(userId, codigos[i], cantidades[i])
+                if rta['status'] == "ok":
+                    output.append(rta['description'])
+            i = i + 1
 
+        if len(output) == 0:
+            output.append("No se generaron pedidos")
+
+        return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":output, "productos":output  })
         
-
-
-        codigo=request.POST["codigo"]
-        cantidad=request.POST["cantidad"]
+        """
+        codigo=(request.POST["codigo"])[0]
+        cantidad=request.POST["cantidad"][0]
         print(codigo)
         print (cantidad)
        
@@ -259,7 +295,7 @@ def generapedido(request):
         return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":artdescripcion, "cantidad":cantidad})
         
         #return render(request, "AppCoder/articulos.html")
-        
+        """
         
         #return HttpResponse(f"se agrego el articulo {id_cod}, {cuit}, {descripcion} ")
         #return render_to_response('template_name', message='Save complete')
@@ -427,11 +463,6 @@ def register(request):
 @login_required
 def generapedido1(request, codigo,cantidad):
 
-        
-
-
-
-
 
         codigo_art=Articulos.objects.filter(Codigo=codigo)
         id_cod=codigo_art.values_list('pk', flat=True)
@@ -472,6 +503,67 @@ def generapedido1(request, codigo,cantidad):
         #return HttpResponse(f"se agrego el articulo {id_cod}, {cuit}, {descripcion} ")
         #return render_to_response('template_name', message='Save complete')
         #return messages.add_message(request, messages.INFO, 'Hello world.')
+
+@login_required
+def generapedidoAll(request, codigo,cantidad):
+
+
+        
+        codigo_art=Articulos.objects.filter(Codigo=codigo)
+        id_cod=codigo_art.values_list('pk', flat=True)
+        artdescripcion=codigo_art.values_list("descripcion")
+        usuario = request.user.id
+        
+        #idc=cliente.id
+        try:
+            cliente=Clientes.objects.get(usuario_id=usuario)
+            
+        except:
+            return HttpResponse("Este usuario no puede generar pedidos o no tiene una empresa asignada") 
+        cliente=Clientes.objects.filter(usuario_id=usuario)
+        clienteid=cliente.values("id")
+        #clienteid=cliente.values_list("id")
+        
+        #idarticulo = models.IntegerField("idarticulo")
+        cantidad="1"
+        fecha=datetime.now()
+        
+
+
+        # codigo=request.POST["codigo"]
+        # cuit=request.POST["cuit"]
+        # articulo=request.POST["articulo"]
+        # cantidad=request.POST["cantidad"]
+        pedido=Pedido_temp(idcliente=clienteid, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
+        pedido.save()
+
+        # pedidos=Pedido.objects.all()
+        # productos=Articulos.objects.all()
+        #return render(request,return HttpResponse(f"se agrego el articulo {articulo.codigo} , {articulo.descipcion}")return render(request,)
+        
+        
+        return render(request, "AppCoder/productoconfirmado.html", {"artdescripcion":artdescripcion, "cantidad":cantidad})
+        
+        #return render(request, "AppCoder/articulos.html")
+        
+        
+        #return HttpResponse(f"se agrego el articulo {id_cod}, {cuit}, {descripcion} ")
+        #return render_to_response('template_name', message='Save complete')
+        #return messages.add_message(request, messages.INFO, 'Hello world.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def contacto(request):
             #******************envia correos texto plano
         nombre=request.POST["nombre"]
