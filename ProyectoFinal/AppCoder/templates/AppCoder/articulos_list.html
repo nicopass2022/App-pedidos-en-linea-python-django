@@ -17,10 +17,22 @@
             </div>
         </div>
     </header>
-
     <h1>Listado de Articulos</h1>
 
-    
+
+    <h3>buscar</h3>
+    <form action="/AppCoder/busquedaarticulos/" method="get">
+        <input type="text" name="articulo" >
+        <input type="submit" value="buscar">
+    </form>
+
+         {% if user.is_superuser  %}
+            <!--<button><a href='{% url "importar" %}'>Importar articulos</a></button>-->
+            <button><a href='{% url "uploadFile" %}'>Importar articulos desde Media</a></button>
+        {% endif %}
+
+    <p></p>
+    <p></p><p></p>
     <table>
         <thead>
             

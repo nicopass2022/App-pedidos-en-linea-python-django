@@ -924,6 +924,7 @@ def modificaPedido(request):
 #------fin modifica pedido---------------
 
 #-------------------CRUD CLIENTES-------------------------
+
 class clienteList(ListView):
 
       model = Clientes
