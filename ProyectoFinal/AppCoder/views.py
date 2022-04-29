@@ -927,7 +927,7 @@ def modificaPedido(request):
 class clienteList(ListView):
 
       model = Clientes
-      template_name = "/AppCoder/pedido_list.html"
+      template_name = "/AppCoder/cliente_list.html"
 
 
 
@@ -961,7 +961,43 @@ class clienteDelete(DeleteView):
       success_url = "/AppCoder/cliente/list"
 #-------------------FIN CRUD CLIENTES------------------------
 
-#------IMAGENES DE ARTICULOS-------------
+#-------------------CRUD ARTICULOS-------------------------
+class articuloList(ListView):
+
+      model = Articulos
+      template_name = "/AppCoder/articulos_list.html"
+
+
+
+class articuloDetalle(DetailView):
+
+    model = Articulos 
+    template_name = "AppCoder/articulos_detalle.html"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['usuario'] = User.objects.filter(id=self.object.id)
+
+    #     return context
+
+class articuloCreacion(CreateView):
+
+      model = Articulos
+      success_url = "/AppCoder/articulo/list"
+      fields = ['Codigo', 'descripcion', 'desc_extendida', 'stock', 'image','habilitado']
+
+
+class articuloUpdate(UpdateView):
+
+      model = Articulos
+      success_url = "/AppCoder/articulo/list"
+      fields = ['Codigo', 'descripcion', 'desc_extendida', 'stock', 'image','habilitado']
+
+class articuloDelete(DeleteView):
+
+      model = Articulos
+      success_url = "/AppCoder/cliente/list"
+#-------------------FIN CRUD Articulos------------------------
 
 
 

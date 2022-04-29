@@ -48,6 +48,12 @@ urlpatterns = [
     path('cliente/edit/<pk>', views.clienteUpdate.as_view(), name='clienteEdit'),
     path('cliente/delete/<pk>', views.clienteDelete.as_view(), name='clienteDelete'),
     path('cliente/create', views.clienteCreacion.as_view(), name='clienteNew'),
+      #---crud Articulos---
+    path('articulo/list', views.articuloList.as_view(), name='articuloList'),
+    path('articulo/Detail/<pk>', views.articuloDetalle.as_view(), name='articuloDetail'),
+    path('articulo/edit/<pk>', views.articuloUpdate.as_view(), name='articuloEdit'),
+    path('articulo/delete/<pk>', views.articuloDelete.as_view(), name='articuloDelete'),
+    path('articulo/create', views.articuloCreacion.as_view(), name='articuloNew'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
