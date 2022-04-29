@@ -19,8 +19,12 @@
     </header>
 
     <h3>Pedidos</h3> 
-    <H1>Se agrego correctamente el articulo con la cantidad {{cantidad}} </H1>
-    
+    <H1>Se agregaron correctamente los siguientes articulos </H1>
+    <ul>
+    {% for producto in productos %}
+        <li>{{ producto }}</li>
+    {% endfor %}
+    </ul>
     <td><button><a href='{% url "productos" %}'>volver</a></button></td>
     
 </body>

@@ -71,14 +71,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                
+                    <form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
                     {% if productos %}
-                
+                    <h5><input type="Submit" value= "Enviar Pedido"></h5>
+
                         {% for f  in productos  %}
+
                         <tr>
                             <!-- verifica que el articulo este habilitado. si esta deshabilitado no se muestra-->
                             {% if f.habilitado %}
-  
+
                                 <!--{% for i  in imagenes  %}  
                                     {% if i.album_id == f.id %}
                                         <td><image src="{{i.image.url}}" alt="imagen"></image></td>
@@ -92,15 +94,19 @@
                                 <td>{{f.stock}}</td>
                                 {% if user.is_superuser  %}
                                     <td>{{f.habilitado}}</td>
+                                    <td>
+                                     </td>
+
+
                                     <!--<td><button><a href='{% url "generapedido1" f.Codigo %}'>Comprar</a></button></td>-->
                                 {% else %}
-                                    <td><form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
-                                        <input type='hidden' name='codigo' value={{f.Codigo}}>
-                                        <input type="number" id="cantidad" name="cantidad" style="width: 3em">
-                                        <input type="submit" name="Agregar">
-                                        </form>
+                                    <td><input type='hidden' name='codigo[]' value={{f.Codigo}}>
+                                        <input type="number" min="1" max="10" placeholder="Ingrese hasta 10 unidades"id="cantidad" name="cantidad[]" style="width: 14em">
+                                        
                                     </td>
+                                    
                                 {% endif %}
+                               
                             {% endif %}
                                     
                         {% endfor %}
@@ -109,9 +115,10 @@
                     {% else %}
                         <h1>no hay registros</h1>
                     {% endif %}
-                    
+                    </form>
             </tbody>
         </table>
+        
         <table>
             <thead>
                 <tr>
