@@ -1,0 +1,34 @@
+{% extends 'appcoder/padre.html' %}
+{% load static %}
+
+{% block ContenidoqCambia %}
+<body>
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <h1 class="mb-5">CLIENTES</h1>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<body>
+
+    <form method="POST" enctype="multipart/form-data">
+    
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" />
+    </form>
+
+
+    
+</body>
+</html>
+{% endblock ContenidoqCambia %}
