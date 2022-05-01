@@ -19,7 +19,7 @@
     </header>
 
 <body>
-
+{% if user.is_superuser %}
     <form method="POST" enctype="multipart/form-data">
     
         {% csrf_token %}
@@ -31,7 +31,10 @@
         <a href="{% url 'articuloList' %}">Regresar</a>
     </p>
 
-    
+{% else %}
+    <p>No tiene autorizacion para ver este contenido</p>
+    <a href="{% url 'Inicio'  %}">volver</a> | 
+{% endif %}    
 </body>
 </html>
 {% endblock ContenidoqCambia %}
