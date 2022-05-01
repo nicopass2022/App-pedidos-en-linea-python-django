@@ -18,7 +18,7 @@
         </div>
     </header>
 <body>
-
+{% if user.is_superuser %}
     <p>C.U.I.T.: <i>{{ object.cuit }} </i></p>
     <p>RAZON SOCIAL: <i>{{ object.razonsocial }} </i></p>
     <p>DOMICILIO: <i></i>{{ object.domicilio }}</i> </p>
@@ -30,5 +30,9 @@
         <a href="{% url 'clienteList' %}">Regresar</a>
     </p>
 
+{% else %}
+    <p>No tiene autorizacion para ver este contenido</p>
+    <a href="{% url 'Inicio'  %}">volver</a> | 
+{% endif %}
 </body>
 {% endblock ContenidoqCambia %}

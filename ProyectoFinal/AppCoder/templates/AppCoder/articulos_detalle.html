@@ -18,7 +18,7 @@
         </div>
     </header>
 <body>
-
+{% if user.is_superuser %}
     <p>CODIGO:   <i>{{ object.Codigo }} </i></p>
     <p>DESCRIPCION: <i>{{ object.descripcion }} </i></p>
     <p>DETALLE: <i>{{ object.desc_extendida }}</i> </p>
@@ -40,5 +40,10 @@
         <a href="{% url 'articuloList' %}">Regresar</a>
     </p>
 
+    
+{% else %}
+    <p>No tiene autorizacion para ver este contenido</p>
+    <a href="{% url 'Inicio'  %}">volver</a> | 
+{% endif %}
 </body>
 {% endblock ContenidoqCambia %}

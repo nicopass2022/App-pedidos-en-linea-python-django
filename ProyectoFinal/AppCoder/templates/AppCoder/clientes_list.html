@@ -17,7 +17,7 @@
             </div>
         </div>
     </header>
-
+{% if user.is_superuser %}
     <h1>Listado de Clientes</h1>
 
     
@@ -57,5 +57,10 @@
     </tbody>
 </table>
     <a href="{% url 'clienteNew'  %}">Nuevo</a> | 
+
+{% else %}
+    <p>No tiene autorizacion para ver este contenido</p>
+    <a href="{% url 'Inicio'  %}">volver</a> | 
+{% endif %}
 </body>
     {% endblock ContenidoqCambia %}
