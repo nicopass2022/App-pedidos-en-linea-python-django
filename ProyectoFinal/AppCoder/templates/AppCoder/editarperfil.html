@@ -16,13 +16,15 @@
         </div>
     </div>
 </header>
-
+<section class="page-section" id="contact">
+    <div class="container-fluid">
+        <div class="text-center text-white">
 <body>
     <p>Modificar los datos de : {{user.username}}</p>
     <form action="" method="POST">{% csrf_token %}
         {{miFormulario.as_p}}
         <button type="submit">Enviar</button> 
     </form>
-
+</section>
 </body>
 {% endblock ContenidoqCambia %}

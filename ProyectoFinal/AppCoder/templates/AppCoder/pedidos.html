@@ -4,12 +4,12 @@
 {% block ContenidoqCambia %}
 <body>
     <header class="masthead">
-        <div class="container position-relative">
+        <div class="container-fluid position-relative">
             <div class="row justify-content-center">
                 <div class="col-xl-6">
                     <div class="text-center text-white">
                         <!-- Page heading-->
-                        <h1 class="mb-5" style="margin-top: -150px;">PEDIDOS</h1>
+                        <h1 class="mb-5" style="margin-top: 100px;">PEDIDOS</h1>
 
 
                     </div>
@@ -63,9 +63,12 @@
     </table>
 </form>
 {% endif %}
+<section class="page-section" id="contact">
+    <div class="container-fluid">
+        <div class="text-center text-white">
     <hr>
     <h3>Pedidos Cerrados</h3> 
-    <table class="table">
+    <table class="table text-white">
         <thead>
             <tr>    
                 <th>Nro Pedido    </th>
@@ -101,7 +104,7 @@
                     {% else %}
                         <td>"Pendiente"</td>
                     {% endif %}
-                    <td> <td><button><a href='{% url "consultapedido" f.id %}' class="btn btn-sm btn-primary" style="color:#000;">Consultar Pedido</a></button></td></td>
+                    <td> <td><button><a href='{% url "consultapedido" f.id %}' class="btn btn-sm btn-secondary" style="color:rgb(0, 0, 0);">Consultar Pedido</a></button></td></td>
                     {% endfor %}
                     </tr>
             {% else %}
@@ -111,6 +114,8 @@
             {% endif %}    
         </tbody>
     </table>
+    
+</section>
 </body>
 
 {% endblock ContenidoqCambia %}

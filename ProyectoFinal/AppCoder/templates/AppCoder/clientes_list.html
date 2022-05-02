@@ -18,6 +18,9 @@
         </div>
     </header>
 {% if user.is_superuser %}
+<section class="page-section" id="contact">
+    <div class="container-fluid">
+        <div class="text-center text-white">
     <h1>Listado de Clientes</h1>
 
     
@@ -45,7 +48,7 @@
                    
                     <td> {{ C.usuario }}</td>
                     <td><a href="{% url 'clienteDetail' C.id %}">Ver</a> |</td> 
-                    <td><a href="{% url 'clienteEdit' C.id %}">Editar</a> </td>| 
+                    <td><a href="{% url 'clienteEdit' C.id %}">Editar</a> | </td>
                     <td><a href="{% url 'clienteDelete' C.id %}">Borrar</a> </td>
             
 
@@ -56,11 +59,15 @@
             
     </tbody>
 </table>
-    <a href="{% url 'clienteNew'  %}">Nuevo</a> | 
 
+    <a href="{% url 'clienteNew'  %}">| Nuevo |</a> 
+
+</section>
 {% else %}
     <p>No tiene autorizacion para ver este contenido</p>
     <a href="{% url 'Inicio'  %}">volver</a> | 
+
+
 {% endif %}
 </body>
     {% endblock ContenidoqCambia %}
