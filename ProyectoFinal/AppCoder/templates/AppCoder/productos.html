@@ -9,7 +9,7 @@
                 <div class="col-xl-6">
                     <div class="text-center text-white">
                         <!-- Page heading-->
-                        <h1 class="mb-5">PRODUCTOS</h1>
+                        <h1 class="mb-5" style="margin-top: -150px;">PRODUCTOS</h1>
 
 
                     </div>
@@ -17,65 +17,43 @@
             </div>
         </div>
     </header>
-        <h3>Productos</h3> 
-
+    
         {% if codigo %}
             <H1>Se agrego correctamente el producto {{descripcion}} con el codigo {{codigo}} </H1>
         {% endif %}
 
-        <p>busqueda</p>
-        <form action="/AppCoder/busquedaarticulos/" method="get">
-            <input type="text" name="articulo" >
-            <input type="submit" value="buscar">
-        </form>
-        <!--<p>Ingrese Nuevo Producto</p>
-        <form action="/AppCoder/agregaarticulos/" method="POST">{% csrf_token %}
-            <p>Codigo <input type="text" name="codigo" placeholder="Ingrese codigo de producto"></p>
-            <p>Descripcion <input type="text" name="descripcion" placeholder="Ingrese Descripcion"></p>
-            <p>Stock <input type="text" name="stock" placeholder="Ingrese Stock"> </p>-->
-            <!-- dropdown list con articulos-->
-            <!--<select name="select">
-
-                {% for p  in productos  %}
-                    <option value="{{f.Codigo}}">{{f.descripcion}}</option>
-
-                {% endfor %}
-            </select>
-           
-            <input type="submit" name="enviar">
-
-        
-        </form>-->
-        <p></p>
         {% if user.is_superuser  %}
             <!--<button><a href='{% url "importar" %}'>Importar articulos</a></button>-->
             <button><a href='{% url "uploadFile" %}'>Importar articulos de Media</a></button>
         {% endif %}
-        <p></p>
-        <p></p>
-        <p></p>
-        <h3>Listado de Productos</h3>
-        <p></p>
-        <p></p>
-           
-          
-            <table>
+
+        <h3 style="margin: 5px;">Listado de Productos</h3>
+
+        <div style="text-align: center;">
+            <form action="/AppCoder/busquedaarticulos/" method="get">
+                <input type="text" name="articulo" >
+                <input type="submit" value="buscar" class="btn btn-sm btn-primary" style="color:#000;">
+            </form>
+        </div>
+        
+        <form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
+            <table class="table">
                 <thead>
                     <tr>
                 
-                        <td>Imagen</td>
-                        <td>Codigo    </td>
-                        <td>Descripcion    </td>
-                        <td>Descripcion Extendida   </td>
-                        <td>Stock Disponible    </td>
-                
+                        <th>Imagen</th>
+                        <th>Codigo    </th>
+                        <th>Descripcion    </th>
+                        <th>Descripcion Extendida   </th>
+                        <th>Stock Disponible    </th>
+                        <th><input type="Submit" value= "Enviar Pedido" class="btn btn-sm btn-success"></th>
 
                 </tr>
                 </thead>
                 <tbody>
-                    <form action="/AppCoder/generapedido/" method="POST">{% csrf_token %}
+                   
                     {% if productos %}
-                    <h5><input type="Submit" value= "Enviar Pedido"></h5>
+                    <h5></h5>
 
                         {% for f  in productos  %}
 
@@ -90,7 +68,7 @@
                                         
                                     {% endif%}
                                 {% endfor %}  -->
-                                <td><image src="{{f.image.url}}" alt="imagen"></image></td>
+                                <td><image src="{{f.image.url}}" alt="imagen" style="width: 20%;"></image></td>
                                 <td>{{f.Codigo}}</td>
                                 <td>{{f.descripcion}}</td>
                                 <td>{{f.desc_extendida}}</td>
@@ -104,7 +82,7 @@
                                     
                                 {% else %}
                                     <td><input type='hidden' name='codigo[]' value={{f.Codigo}}>
-                                        <input type="number" min="1" max={{f.stock}} placeholder="Ingrese hasta {{f.stock}} unidades"id="cantidad" name="cantidad[]" style="width: 14em">
+                                        <input type="number" min="1" max={{f.stock}} placeholder="Ingrese hasta {{f.stock}} unidades" id="cantidad" name="cantidad[]" style="width: 14em">
                                         
                                     </td>
                                     
@@ -118,10 +96,10 @@
                     {% else %}
                         <h1>no hay registros</h1>
                     {% endif %}
-                    </form>
+                    
             </tbody>
         </table>
-        
+    </form>
         <table>
             <thead>
                 <tr>

@@ -9,7 +9,7 @@
                 <div class="col-xl-6">
                     <div class="text-center text-white">
                         <!-- Page heading-->
-                        <h1 class="mb-5">PEDIDOS</h1>
+                        <h1 class="mb-5" style="margin-top: -150px;">PEDIDOS</h1>
 
 
                     </div>
@@ -18,67 +18,27 @@
         </div>
     </header>
 
-    <h3>Pedidos</h3> 
     {% if articulo %}
         <H1>Se agrego correctamente el pedido con el articulo {{articulo}}  </H1>
     {% endif %}
-       <!-- <p>Ingrese su nuevo pedido</p>
-        <form action="/AppCoder/agregapedido/" method="POST">{% csrf_token %}
-            <p>Cuit <input type="text" name="cuit" placeholder="Ingrese su C.U.I.T."></p>
-            <p>Articulo <input type="text" name="articulo" placeholder="Ingrese articulo"></p>
-            <p>Cantidad <input type="nombre" name="cantidad" placeholder="Ingrese cantidad"> </p>
-            <input type="submit" name="enviar">
-        </form>
-        -->
-
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-
-
-        
-   <p></p>
-   <p></p>
+       
    {% if pedidos_temp %}
-   <h3>Pedidos Abiertos</h3> 
-    <table>
+    <h3 style="margin: 5px;">Pedidos Abiertos</h3> 
+    <form action="/AppCoder/cierrapedido/" method="POST">{% csrf_token %}
+    <input type="Submit" value= "Cerrar Pedido" class="btn btn-sm btn-success">
+    <table class="table">
         <thead>
             <tr>
-          
-                <!--<td>Nro Pedido    :</td>-->
-                <td>Fecha    :</td>
-                <!--<td>Cliente    :</td>-->
-                
-                <td>Código Articulo    :</td>
-                <td>Decripción    :</td>
-                <td>Cantidad    :</td>
-                
-                <!--<td>Estado   :</td>
-                <td>Entregado    :</td>-->
-           
-
+                <th>Fecha    </th>
+                <th>Código Articulo    </th>
+                <th>Decripción    </th>
+                <th>Cantidad</th>
            </tr>
         </thead>
         <tbody>
-            <form action="/AppCoder/cierrapedido/" method="POST">{% csrf_token %}
             
-            <h5><input type="Submit" value= "Cerrar Pedido"></h5>
-
                 {% for f  in pedidos_temp  %}
-
                 <tr>
-                    <!-- verifica que el articulo este habilitado. si esta deshabilitado no se muestra-->
-                    
-
-                        <!--{% for i  in imagenes  %}  
-                            {% if i.album_id == f.id %}
-                                <td><image src="{{i.image.url}}" alt="imagen"></image></td>
-                            
-                                
-                            {% endif%}
-                        {% endfor %}  -->
-                       
                         <td>{{f.fecha}}</td>
                         {% for d  in articulos %}
                             {% if f.idarticulo_id == d.id %}
@@ -95,39 +55,25 @@
                             </td>
                             
                         {% endif %}
-                       
-                
-                            
+                    </tr>
                 {% endfor %}
-                </tr>
-            
-
-            {% endif %}
-            </form>
     </tbody>
 
         
     </table>
-
+</form>
+{% endif %}
     <hr>
     <h3>Pedidos Cerrados</h3> 
-    <table>
+    <table class="table">
         <thead>
-            <tr>
-          
-                <td>Nro Pedido    :</td>
-               
-                <td>Fecha    :</td>
-               
-                <td>Cliente    :</td>
-
-                <td>Entregado    :</td>
-           
-
+            <tr>    
+                <th>Nro Pedido    </th>
+                <th>Fecha    </th>
+                <th>Cliente    </th>
+                <th>Entregado    </th>
            </tr>
         </thead>
-
-        
         <tbody>
             {% if pedidos %}
         
@@ -155,65 +101,16 @@
                     {% else %}
                         <td>"Pendiente"</td>
                     {% endif %}
-                    
-                    
-                    <!--<td>{{f.entregado}}</td>-->
-                    <td> <td><button><a href='{% url "consultapedido" f.id %}'>Consultar Pedido</a></button></td></td>
-
+                    <td> <td><button><a href='{% url "consultapedido" f.id %}' class="btn btn-sm btn-primary" style="color:#000;">Consultar Pedido</a></button></td></td>
                     {% endfor %}
                     </tr>
-            
             {% else %}
-                <h1>no hay Pedidos cerrados</h1>
-            {% endif %}
-
-                    
-        </tbody>
-        
-    </table>
-
-
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-   <!--
-    <h3>Listado de Productos</h3>
-    <p></p>
-    <p></p>
-        <table>
-            <thead>
-                <tr>
-            
-                    <td>Codigo</td>
-                    <td>Descripcion</td>
-                    <td>Stock</td>
-            
-
-            </tr>
-            </thead>
-            <tbody>
-            
-                {% if productos %}
-            
-                    {% for f  in productos  %}
-                    <tr>
-                        <td>{{f.Codigo}}</td>
-                        <td>{{f.descripcion}}</td>
-                        <td>{{f.stock}}</td>
-                
-
-                    {% endfor %}
-                    </tr>
-                
-            {% else %}
-                <h1>no hay registros</h1>
-            {% endif %}
-                
+                <tr><td colspan="4" style="text-align: center;">
+                    <h6>No hay pedidos cerrados</h6 >
+                </td></tr>
+            {% endif %}    
         </tbody>
     </table>
--->
-
 </body>
 
 {% endblock ContenidoqCambia %}
