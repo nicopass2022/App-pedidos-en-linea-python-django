@@ -182,12 +182,7 @@ def buscar(request):
       #No olvidar from django.http import HttpResponse
 
 def savePedido(usuario, codigo, cantidad):    
-        try:
-            cliente=Clientes.objects.get(usuario_id=usuario)
-            
-        except:
-            return {"status":"error", "description":"Este usuario no puede generar pedidos o no tiene una empresa asignada"} 
-
+        
         codigo_art=Articulos.objects.filter(Codigo=codigo)
         id_cod=codigo_art.values_list('pk', flat=True)
         artdescripcion=codigo_art.values_list("descripcion")
@@ -197,7 +192,7 @@ def savePedido(usuario, codigo, cantidad):
         fecha=datetime.now()
         pedido=Pedido_temp(idcliente=clienteid, idarticulo_id=id_cod,cantidad=cantidad, fecha=fecha)
         pedido.save()
-        return {"status":"ok", "description":artdescripcion} 
+        return {"status":"ok", "description":str(cantidad) + " de " + str(artdescripcion[0])} 
 
 
 @login_required
@@ -207,12 +202,19 @@ def generapedido(request):
         userId = request.user.id
         output = []
         i = 0
-        while i < len(codigos):
-            if len(cantidades[i]) > 0:
-                rta = savePedido(userId, codigos[i], cantidades[i])
-                if rta['status'] == "ok":
-                    output.append(rta['description'])
-            i = i + 1
+        
+        try:
+            cliente=Clientes.objects.get(usuario_id=userId)
+        except:
+            output.append("Error: Este usuario no puede generar pedidos o no tiene una empresa asignada")
+            
+        if len(output) == 0:
+            while i < len(codigos):
+                if len(cantidades[i]) > 0:
+                    rta = savePedido(userId, codigos[i], cantidades[i])
+                    if rta['status'] == "ok":
+                        output.append(rta['description'])
+                i = i + 1
 
         if len(output) == 0:
             output.append("No se generaron pedidos")

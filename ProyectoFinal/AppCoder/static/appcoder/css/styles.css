@@ -4436,7 +4436,7 @@ textarea.form-control-lg {
   flex-grow: 0;
   padding: 0;
   overflow-y: visible;
-}
+} 
 
 .navbar-light .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
@@ -11367,7 +11367,7 @@ p {
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #ffc800;
+  color: #d45426;
 }
 
 @media (min-width: 992px) {
@@ -11407,10 +11407,10 @@ p {
 }
 header.masthead {
   padding-top: 10.5rem;
-  padding-bottom: 6rem;
+  /*padding-bottom: 6rem;*/
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header-bg.jpg");
+  background-image: url("../assets/img/fruits&veg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -11434,7 +11434,7 @@ header.masthead .masthead-heading {
 @media (min-width: 768px) {
   header.masthead {
     padding-top: 17rem;
-    padding-bottom: 12.5rem;
+    /*padding-bottom: 12.5rem;*/
   }
   header.masthead .masthead-subheading {
     font-size: 2.25rem;
