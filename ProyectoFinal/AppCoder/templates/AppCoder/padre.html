@@ -46,9 +46,8 @@
                             {% else %}
                                 <li class="nav-item"><a class="nav-link" href='{% url "productos" %}'>Productos</a></li>
                                 <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
-                                <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
-                                <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
-                                
+                                <li class="nav-item"><a class="nav-link" href="/inicio/#team">Nosotros</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/inicio/#contact">Contacto</a></li>
                             
                             {% endif %}
                         {% else %}
@@ -96,11 +95,12 @@
                 
             </div>
         </header> 
-
-        <h3 class="text-center">Inicio</h3>
-        {{mensaje}}
-        <image src="{{avatar.imagen.url}}" alt="avatar" 
-
+            
+        {% if request.user.is.authenticated %}
+            <h3 class="text-center">Inicio</h3>
+            {{mensaje}}
+            <image src="{{avatar.imagen.url}}" alt="avatar" 
+        {% endif %}
         <!-- Team-->
         <section class="page-section bg-dark" id="team">
             <div class="container-fluid">
