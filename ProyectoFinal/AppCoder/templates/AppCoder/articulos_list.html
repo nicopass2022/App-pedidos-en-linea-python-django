@@ -18,7 +18,10 @@
         </div>
     </header>
     {% if  user.is_superuser %}
- 
+    
+    <section class="page-section" id="contact">
+        <div class="container-fluid">
+            <div class="text-center text-white">
     <h1>Listado de Articulos</h1>
 
 
@@ -27,10 +30,12 @@
         <input type="text" name="articulo" >
         <input type="submit" value="buscar">
     </form>
+    <br>
+    <br>
 
          {% if user.is_superuser  %}
             <!--<button><a href='{% url "importar" %}'>Importar articulos</a></button>-->
-            <button><a href='{% url "uploadFile" %}'>Importar articulos desde Media</a></button>
+            <button class="btn-secondary"><a href='{% url "uploadFile" %}'>Importar articulos desde Media</a></button>
         {% endif %}
 
     <p></p>
@@ -60,9 +65,9 @@
                    
                     <td> {{ C.stock }}</td>
                     <td> {{ C.habilitado }}</td>
-                    <td><a href="{% url 'articuloDetail' C.id %}">Ver</a> |</td> 
-                    <td><a href="{% url 'articuloEdit' C.id %}">Editar</a> </td>| 
-                    <td><a href="{% url 'articuloDelete' C.id %}">Borrar</a> </td>
+                    <td><a href="{% url 'articuloDetail' C.id %}">Ver</a> | </td> 
+                    <td><a href="{% url 'articuloEdit' C.id %}">Editar</a> | </td> 
+                    <td><a href="{% url 'articuloDelete' C.id %}">Borrar</a>  </td>
             
 
                 {% endfor %}
@@ -72,10 +77,11 @@
             
     </tbody>
 </table>
-    <a href="{% url 'articuloNew'  %}">Nuevo</a> | 
+    <a href="{% url 'articuloNew'  %}">| Nuevo |</a>  
 {% else %}
     <p>No tiene autorizacion para ver este contenido</p>
     <a href="{% url 'Inicio'  %}">volver</a> | 
 {% endif %}
+</section>
 </body>
     {% endblock ContenidoqCambia %}
