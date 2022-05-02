@@ -927,14 +927,14 @@ def modificaPedido(request):
 
 #-------------------CRUD CLIENTES-------------------------
 
-class clienteList(ListView):
+class clienteList(LoginRequiredMixin, ListView):
 
       model = Clientes
       template_name = "/AppCoder/cliente_list.html"
 
 
 
-class clienteDetalle(DetailView):
+class clienteDetalle(LoginRequiredMixin, DetailView):
 
     model = Clientes 
     template_name = "AppCoder/clientes_detalle.html"
@@ -945,34 +945,35 @@ class clienteDetalle(DetailView):
 
     #     return context
 
-class clienteCreacion(CreateView):
+class clienteCreacion(LoginRequiredMixin, CreateView):
 
       model = Clientes
       success_url = "/AppCoder/cliente/list"
       fields = ['razonsocial', 'cuit', 'contacto', 'domicilio', 'usuario']
 
 
-class clienteUpdate(UpdateView):
+class clienteUpdate(LoginRequiredMixin, UpdateView):
 
       model = Clientes
       success_url = "/AppCoder/cliente/list"
       fields = ['razonsocial', 'cuit', 'contacto', 'domicilio', 'usuario']
 
-class clienteDelete(DeleteView):
+class clienteDelete(LoginRequiredMixin, DeleteView):
 
       model = Clientes
       success_url = "/AppCoder/cliente/list"
 #-------------------FIN CRUD CLIENTES------------------------
 
 #-------------------CRUD ARTICULOS-------------------------
-class articuloList(ListView):
-
+LoginRequiredMixin
+class articuloList(LoginRequiredMixin, ListView):
+    
       model = Articulos
       template_name = "/AppCoder/articulos_list.html"
 
 
 
-class articuloDetalle(DetailView):
+class articuloDetalle(LoginRequiredMixin, DetailView):
 
     model = Articulos 
     template_name = "AppCoder/articulos_detalle.html"
@@ -983,20 +984,20 @@ class articuloDetalle(DetailView):
 
     #     return context
 
-class articuloCreacion(CreateView):
+class articuloCreacion(LoginRequiredMixin, CreateView):
 
       model = Articulos
       success_url = "/AppCoder/articulo/list"
       fields = ['Codigo', 'descripcion', 'desc_extendida', 'stock', 'image','habilitado']
 
 
-class articuloUpdate(UpdateView):
+class articuloUpdate(LoginRequiredMixin, UpdateView):
 
       model = Articulos
       success_url = "/AppCoder/articulo/list"
       fields = ['Codigo', 'descripcion', 'desc_extendida', 'stock', 'image','habilitado']
 
-class articuloDelete(DeleteView):
+class articuloDelete(LoginRequiredMixin, DeleteView):
 
       model = Articulos
       success_url = "/AppCoder/cliente/list"

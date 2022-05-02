@@ -65,7 +65,7 @@
                 
             </div>
             {% if request.user.is_authenticated %}
-            <div style="position: absolute; top: 60px; right: 70px; color: #ceb5ad;" >{{user.username}}</div>
+            <div style="position: absolute; top: 60px; right: 70px; color: #ceb5ad;" ><a class="nav-link" style="color:#ceb5ad;" href='{% url "editarperfil" %}'>{{user.username}}</a></div>
             {% endif %}
         </nav>
 
