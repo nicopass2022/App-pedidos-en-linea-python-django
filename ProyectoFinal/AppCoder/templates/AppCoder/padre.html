@@ -21,11 +21,13 @@
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color:rgba(0, 0, 0, 0.5)">
-            <div class="container">
+            <div class="container-fluid">
 
 
                 <a class="navbar-brand" href="http://127.0.0.1:8000/AppCoder">
-                    Nifertina
+                    Nifertina <p class="text-muted">
+                        "Del Campo a tu Hogar"
+                    </p>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
@@ -73,56 +75,74 @@
         
         <!-- Masthead-->
         <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">Bienvenidos a PEDIDOS ONLINE</div>
-                <div class="masthead-heading text-uppercase">Te estabamos esperando</div>
+            <div class="container-fluid">
+                <div class="masthead-subheading">"Bienvenidos a Casa de Campo Nifertina..."</div>
+                <div class="masthead-subheading pt=10px">Somos distribuidores mayoristas y minoristas de frutas y verduras.
+                    <br>
+                    
+                    <br>
+                    <br>
+                    <!-- Nuestro propósito es acercar a las familias productos de calidad a bajos precios, contribuyendo a la nutrición saludable de grandes y chicos. -->
+<!--                     
+                    Si estás buscando reparto de frutas y verduras a domicilio, llegaste al lugar indicado. 
+                    
+                    ¿Querés realizar una compra mayorista? Te damos asesoramiento personalizado. 
+                    
+                    Elige tu opción haciendo </div> -->
                 <!--<a class="btn btn-primary btn-xl text-uppercase" href="#services">Quiero Saber Más!</a>-->
                 <a class="btn btn-primary btn-xl text-uppercase" href="#contact">Quiero Saber Más!</a>
+                <br>
+                <br>
+                
             </div>
         </header> 
 
-        <h3>Inicio</h3>
+        <h3 class="text-center">Inicio</h3>
         {{mensaje}}
-        <image src="{{avatar.imagen.url}}" alt="avatar"
-
-     
+        <image src="{{avatar.imagen.url}}" alt="avatar" 
 
         <!-- Team-->
-        <section class="page-section bg-light" id="team">
-            <div class="container">
+        <section class="page-section bg-dark" id="team">
+            <div class="container-fluid">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Nuestro Gran Equipo</h2>
-                    <h3 class="section-subheading text-muted">Del campo a tu hogar</h3>
+                    <h2 class="section-heading text-uppercase text-white">Nuestro Gran Equipo</h2>
+                    <h4 class="section-subheading text-muted">GRUPO Nº 16 - CAMADA Nº 27600</h4>
+                    <h3 class="section-subheading  text-white">"Del Campo a tu Hogar..."</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/1.jpg' %}" alt="..." />
-                            <h4>Nicolas</h4>
-                            <p class="text-muted">Lead Designer</p>
-                            <!--<a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            --><a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/nicolas-passarini-489095ba/" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/nico.jpg' %}" alt="..." />
+                            <h4 class="text-white">Nicolas Passarini</h4>
+                            <p class="text-white">Gerente General (Infraestructura / SQL / ISS / Sript)</p>
+                            <p class="text-muted">Mi nombre es Nicolas, soy de Buenos Aires, estudie CCNA (Cisco Certified Network Associate) y Microsoft Certified Systems Engineer (MCSE) en la Universidad de Moron. Soy Consultor externo de la Universidad Nacional de La Matanza y  Universidad Nacional de Tres de Febrero  y Consultor IT hace mas de 18 años actualmente estoy en Hexanet Argentina, y como requiere esta profesion capacitandome en Data Analitycs y ahora en Python en Coderhouse para tener mas herramientas a la hora de Programar.- </p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Nicolas Passarini Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Nicolas Passarini Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/nicolas-passarini-489095ba/" aria-label="Nicolas Passarini LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/2.jpg' %}" alt="..." />
-                            <h4>Agostina</h4>
-                            <p class="text-muted">Lead Marketer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/agos2.jpg' %}" alt="..." />
+                            <h4 class="text-white">Agostina Fregossi </h4>
+                            <p class="text-white">Gerente Regional (Ing. Agronoma/ Quality assurance)</p>
+                            <p class="text-muted">Mi nombre es Agostina, soy de Buenos Aires, estudie en la Universidad de Buenos Aires, soy Ingeniera agrónoma, aunque la mayor parte de mi vida profesional la trabajé en marketing con sistemas, y siendo QA Software Engineer (quality assurance); capacitandome en la UCES - Universidad de Ciencias Empresariales y Sociales, encontrado mi lugar en el mundo profesional, ya que me apasiona continuamente me voy actualizando con las distintas tecnologias y lenguajes en Coderhuse.-  </p>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Agostina Fregossi Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Agostina Fregossi Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/agostinafregossi" aria-label="Agostina Fregossi LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/3.jpg' %}" alt="..." />
-                            <h4>Fernando</h4>
-                            <p class="text-muted">Lead Executive</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                            <img class="mx-auto rounded-circle" src="{% static 'AppCoder/assets/img/team/fer3.jpg' %}" alt="..." />
+                            <h4 class="text-white">Fernando Reyna</h4>
+                            <p class="text-white">Gerente Sectorial (Arquitecto y Cocinero Profesional)
+                            </p>
+                            <p class="text-muted">Mi nombre es Fernando, soy de Cordoba capital, tengo 37 años y en mi vida he pasado por varios rubros, soy Arquitecto recibido de la Universidad Nacional de Cordoba (UNC); con mas de 11 años de experiencia profesional y mas de 50 obras realizadas. Tambien estoy recibido de Cocinero Profesional en I.G.A (Instituto Gastronomico Argentino), he sido Relaciones Publicas y probado con varios emprendimientos. Apasionado de conocer nuevos caminos y rubros, por el cual, me veo incursionando por el mundo de la Programacion (estudiando la Carrera Full Stack y Python en Coderhouse), el cual me parece maravilloso.- </p>
+                           
+                            <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/fernandoreyna21" aria-label="Fernando Reyna Twitter Profile"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/fernandogabriel.reyna" aria-label="Fernando Reyna Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/fernando-reyna-8134a951/!" aria-label="Fernando Reyna LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -152,9 +172,9 @@
         </div> -->
         <!-- Contact-->
         <section class="page-section" id="contact">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                    <h2 class="section-heading text-uppercase">CONTACTANOS</h2>
                     
                 </div>
                 <!-- * * * * * * * * * * * * * * *-->
@@ -222,17 +242,17 @@
         {% endblock %}
         <!-- Footer-->
         <footer class="footer py-4">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row align-items-center">
                     <!--<div class="col-lg-4 text-lg-start">Copyright &copy; NIFERTINA 2022</div>-->
                     <div class="col-lg-4 my-3 my-lg-0">
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/nicolas-passarini-489095ba/!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                        <a class="link-dark text-decoration-none me-3" href="#!">Politica de Privacidad.</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terminos y Usos - 2022</a>
                     </div>
                 </div>
             </div>
