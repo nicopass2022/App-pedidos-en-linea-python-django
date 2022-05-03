@@ -48,11 +48,12 @@
                                 <li class="nav-item"><a class="nav-link" href='{% url "pedidos" %}'>Pedidos</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/inicio/#team">Nosotros</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/inicio/#contact">Contacto</a></li>
+                                
                             
                             {% endif %}
                         {% else %}
-                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#team">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/AppCoder/#contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/inicio/#team">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/inicio/#contact">Contacto</a></li>
                         {% endif %}
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href='{% url "logout" %}'>Salir</a></li>
@@ -96,11 +97,15 @@
             </div>
         </header> 
             
-        {% if request.user.is.authenticated %}
+        {% if request.user.is_authenticated %}
             <h3 class="text-center">Inicio</h3>
             {{mensaje}}
-            <image src="{{avatar.imagen.url}}" alt="avatar" 
+            <image src="{{avatar.imagen.url}}" alt="avatar" ></image>
         {% endif %}
+        {% if correo %}
+            <h3>{{correo}}</h3>
+        {% endif %}
+
         <!-- Team-->
         <section class="page-section bg-dark" id="team">
             <div class="container-fluid">
@@ -184,7 +189,7 @@
                 <!-- To make this form functional, sign up at-->
                 <!-- https://startbootstrap.com/solution/contact-forms-->
                 <!-- to get an API token!-->
-                <form action="AppCoder/contacto/" class="contact" id="contactForm" data-sb-form-api-token="91e18dff-3d7a-4ed5-a779-cd5c1bb39f37" method="POST">{% csrf_token %}
+                <form action="/AppCoder/contacto/" class="contact" id="contactForm" data-sb-form-api-token="91e18dff-3d7a-4ed5-a779-cd5c1bb39f37" method="POST">{% csrf_token %}
                 
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-6">
