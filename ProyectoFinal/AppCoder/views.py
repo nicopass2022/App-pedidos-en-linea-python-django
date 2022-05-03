@@ -680,7 +680,8 @@ def contacto(request):
              fail_silently=False
             )
         #**********************************
-        return HttpResponse("se envio el correo")
+        
+        return render(request, "AppCoder/padre.html", {"correo":"Su formulario de contacto se envio satisfactoriamente"})
 
 def consultapedido(request, id_pedido):
     
@@ -845,8 +846,9 @@ def importarMedia(request):
     for document in documents:
         document.delete()   
 
-
-    return HttpResponse(f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos")
+    mensaje=f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos"
+    return render (request,"AppCoder/articulos_confirmaimportacion.html", {"mensaje":mensaje})
+    #return HttpResponse(f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos")
 #-------subir archivos--------------
 
 def uploadFile(request):
