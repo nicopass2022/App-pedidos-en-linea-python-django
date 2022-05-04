@@ -40,13 +40,13 @@ Si el codigo existe, se actualiza la descripcion del articulo y el stock
 codigoarticulo,descripcion,stock
 
 *Ejemplo:
-p2001,Articulo1,50
-p2002,Articulo2,199
-p2003,Articulo3,201
-p2004,Articulo4,120
-p2005,Articulo5,38
-p2006,Articulo6,15
-p2007,Articulo7,7
+p2001, Articulo1, 50.
+p2002, Articulo2, 199.
+p2003, Articulo3, 201.
+p2004, Articulo4, 120.
+p2005, Articulo5, 38.
+p2006, Articulo6, 15.
+p2007, Articulo7, 7.
 
 ----------------------------------------------------------------------
 
