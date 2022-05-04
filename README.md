@@ -1,5 +1,8 @@
-## AppCoder
-Primera Entrega
+## AppCoder 
+
+Grupo 16: Nicolas Passarini - Agostina Fregossi - Fernando Reyna.- Camada:27600
+
+Entrega Final
 
 NIFERTINA WebApp Admin es una aplicación que está pensada para los equipos de ventas que recorren distintas zonas geográficas en búsqueda de nuevos clientes. Estos clientes son un target muy particular ya que no son amigables con la tecnologia y prefieren el contacto face to face.
 
