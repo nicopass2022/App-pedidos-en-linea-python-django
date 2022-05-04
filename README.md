@@ -32,10 +32,13 @@ Próximas mejoras:
 
 -------Importacion / Actualización masiva de articulos y stock--------
 mediante un archivo .txt se puede hacer un alta, o modificacion de articulos.
+
 Si el codigo del articulo no existe, el articulo se da de alta, junto con la descripción y su correspondiente stock
 Si el codigo existe, se actualiza la descripcion del articulo y el stock
+
 *formato archivo:
 codigoarticulo,descripcion,stock
+
 *Ejemplo:
 p2001,Articulo1,50
 p2002,Articulo2,199
