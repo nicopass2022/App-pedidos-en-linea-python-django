@@ -20,18 +20,16 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color:rgba(0, 0, 0, 0.5)">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top  mx-0 px-5 text-center" id="mainNav" style="background-color:rgba(0, 0, 0, 0.5)">
+            <div class="container">
 
 
-                <a class="navbar-brand" href="http://127.0.0.1:8000/AppCoder">
-                    Nifertina <p class="text-muted">
-                        "Del Campo a tu Hogar"
-                    </p>
+                <a class="navbar-brand " href="http://127.0.0.1:8000/AppCoder">
+                    Nifertina <p class="text-muted "> "Del Campo a tu Hogar"</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
-                    <i class="fas fa-bars ms-1"></i>
+                    <i class="fas fa-bars ms-1 "></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
@@ -57,6 +55,7 @@
                         {% endif %}
                         {% if request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href='{% url "logout" %}'>Salir</a></li>
+                            <li class="nav-item"></li><a class="btn btn-dark btn-social mx-5" href="https://accounts.google.com/SignOutOptions?hl=es&continue=https://mail.google.com&service=mail" aria-label="Gmail"><i class="fa-solid fa-envelope"></i></a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href='{% url "registro" %}'>Registro</a></li>
                             <li class="nav-item"><a class="nav-link" href='{% url "login" %}'>Login</a></li>
@@ -254,6 +253,8 @@
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/nicolas-passarini-489095ba/!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://accounts.google.com/SignOutOptions?hl=es&continue=https://mail.google.com&service=mail" aria-label="Gmail"><i class="fa-solid fa-envelope"></i></a>
+                        
                     </div>
                     <div class="col-lg-4 text-lg-end">
                         <a class="link-dark text-decoration-none me-3" href="#!">Politica de Privacidad.</a>
