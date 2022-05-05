@@ -37,6 +37,10 @@ class UserEdithForm(UserCreationForm):
 
 
 
+class CustomUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 # class UploadImageForm(forms.ModelForm):
 

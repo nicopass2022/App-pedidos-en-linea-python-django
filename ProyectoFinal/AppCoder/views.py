@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from pkg_resources import require
 
-from AppCoder.forms import UserEdithForm
+from AppCoder.forms import UserEdithForm, CustomUserForm
 #Import OS para acceder a carpetas 
 import os
 #para las detail, list create y edit view
@@ -528,7 +528,8 @@ def register(request):
 
       if request.method == 'POST':
 
-            form = UserCreationForm(request.POST)
+            form = CustomUserForm(request.POST)
+            #form = UserCreationForm(request.POST)
             #form = UserRegisterForm(request.POST)
             if form.is_valid():
 
@@ -559,7 +560,8 @@ def register(request):
 
 
       else:
-            form = UserCreationForm()       
+            form = CustomUserForm() 
+            #form = UserCreationForm()       
             #form = UserRegisterForm()     
 
       return render(request,"AppCoder/registro.html" ,  {"form":form})
