@@ -834,7 +834,8 @@ def importarMedia(request):
     #         ruta=lista_final[valor][2]
     #         estado=resultado
         if Articulos.objects.filter(Codigo=codigo):
-            Articulos.objects.filter(Codigo=codigo).update(stock=stock)
+           
+            Articulos.objects.filter(Codigo=codigo).update(stock=stock, descripcion=descripcion)
             #return HttpResponse("se actualizaron articulos")   
             actualizado+=1    
         else:
@@ -847,7 +848,7 @@ def importarMedia(request):
     documents = Document.objects.all()
     for document in documents:
         document.delete()   
-
+    #os.remove(os.path.join(MEDIA_ROOT+'media/Uploaded/articulos.txt'))
     mensaje=f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos"
     return render (request,"AppCoder/articulos_confirmaimportacion.html", {"mensaje":mensaje})
     #return HttpResponse(f"se agregaron, {nuevo} articulos. Se actualizaron ,{actualizado} articulos")
@@ -1004,7 +1005,7 @@ class articuloUpdate(LoginRequiredMixin, UpdateView):
 class articuloDelete(LoginRequiredMixin, DeleteView):
 
       model = Articulos
-      success_url = "/AppCoder/cliente/list"
+      success_url = "/AppCoder/articulo/list"
 #-------------------FIN CRUD Articulos------------------------
 
 
